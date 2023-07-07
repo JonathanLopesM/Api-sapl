@@ -4,7 +4,7 @@ import jwt, { Secret } from "jsonwebtoken"
 
 import User from "../models/UserModel";
 import UserParlam from "../models/UserParlamModel";
-import Votante from "../models/votingModel";
+import VoteModel from "../models/VoteModel";
 
 interface ReqBody {
   username: string;
@@ -38,11 +38,11 @@ export const Login = async (req:Request, res:Response) => {
       if(!user){
         return res.status(422).json({ msg: 'Usuário não encontrado, verifique Email/Senha'})
       }
-      let votante = await Votante.findOne({ id: user.id})
+      let votante = await VoteModel.findOne({ id: user.id})
 
 
       if(!votante){
-          votante = new Votante({
+          votante = new VoteModel({
             id: user.id,
             user: user._id,
             name: user.nome_parlamentar,
@@ -53,7 +53,7 @@ export const Login = async (req:Request, res:Response) => {
           votante.save()
         }
         if(user) {
-          await Votante.findByIdAndUpdate(user._id, {
+          await VoteModel.findByIdAndUpdate(user._id, {
               name: user.nome_parlamentar,
               fotografia: user.fotografia,
               presenca: true,

@@ -1,11 +1,11 @@
-import votingModel from "../../../models/votingModel"
+import VoteModel from "../../../models/VoteModel"
 
 
 export const Voting = async (req, res) => {
   const { user } = req.params 
   const { voto } = req.body
   // console.log(user, 'id do votante')
-  const response = await votingModel.findOneAndUpdate({user:user}, {
+  const response = await VoteModel.findOneAndUpdate({user:user}, {
     voto: voto
   })
   console.log(response, 'response do voto')  

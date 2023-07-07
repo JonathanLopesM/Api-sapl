@@ -2,7 +2,7 @@ import axios from "axios"
 import { Request, Response } from "express"
 import PanelModel from "../../models/PanelModel"
 
-import VotingModel from "../../models/votingModel";
+import VoteModel from "../../models/VoteModel";
 
 export const ReturnPainelDados = async (req:Request, res:Response) => {
   const { id } = req.params;
@@ -18,7 +18,7 @@ export const ReturnPainelDados = async (req:Request, res:Response) => {
     res.status(200).json({message: `Bem vindos a casa do Povo!`})
   }
   if(tela === 1){
-    const stateVote = await VotingModel.find()
+    const stateVote = await VoteModel.find()
     console.log(stateVote, 'votante')
     res.status(200).json({message: `tela ${tela}`, stateVote})
   }
