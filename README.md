@@ -19,4 +19,5 @@
   
   # Voter and presence
   - presence check on login
+  - now materia vote
   - 

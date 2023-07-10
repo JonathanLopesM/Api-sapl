@@ -3,6 +3,7 @@ import bcrypt from "bcrypt"
 
 import User from "../models/UserModel";
 import UserParlam from "../models/UserParlamModel";
+import VoteModel from "../models/VoteModel";
 
 interface PARL {
   id: number;
@@ -70,6 +71,7 @@ export const CreateAuthUser = async (req, res) => {
 
   //create User
   let user = {} as any
+  let voting = {} as any
   if(nivel === 5){
     user = new User({
       username,
@@ -103,10 +105,12 @@ export const CreateAuthUser = async (req, res) => {
       cropping:parlamentar.data.cropping,
       nivel_instrucao:parlamentar.data.nivel_instrucao
     })
+    
   }
 
   try {
 
+    
     await user.save()
     res.status(201).json({message: 'usuario criado com sucesso!'})
 

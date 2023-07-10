@@ -8,7 +8,6 @@ export const Voting = async (req, res) => {
   const response = await VoteModel.findOneAndUpdate({user:user}, {
     voto: voto
   })
-  console.log(response, 'response do voto')  
 
   res.status(200).json({message: `ok`, response})
 }
