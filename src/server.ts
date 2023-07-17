@@ -16,6 +16,7 @@ import { ReturnPainelDados } from "./controllers/Panel/ReturnDataPanel";
 import { Voting } from "./controllers/Panel/VoteParlamentaries/Voting";
 import PanelModel from "./models/PanelModel";
 import VoteModel from "./models/VoteModel";
+import { ReturnVotes } from "./controllers/Panel/VoteParlamentaries/ReturnVotes";
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.patch("/painel/dados/:id", PatchPainel)
 
 
 //Voting
+app.get("/parl/vote", ReturnVotes)
 app.patch("/parl/vote/:user", Voting)
 
 // io.on('connection', (socket: Socket) => {

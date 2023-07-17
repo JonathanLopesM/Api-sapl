@@ -22,7 +22,7 @@ export const Login = async (req:Request, res:Response) => {
 
   let user = {} as any
   var response = {} as any
-  console.log(username, 'username')
+
   user = await User.findOne({ username})
   console.log(user , 'user return findOne')
   if(user) {
@@ -36,14 +36,13 @@ export const Login = async (req:Request, res:Response) => {
 
   
   if(!user){
-      user = await UserParlam.findOne({username})
+      user = await UserParlam.findOne({username: username})
       console.log(user, 'user parl')
       if(!user){
         return res.status(422).json({ msg: 'Usuário não encontrado, verifique Email/Senha'})
       }
       let votante = await VoteModel.findOne({ id: user.id})
 
-      console.log(votante, "votante")
 
       if(!votante){
           votante = new VoteModel({
@@ -51,10 +50,10 @@ export const Login = async (req:Request, res:Response) => {
             user: user._id,
             name: user.nome_parlamentar,
             fotografia: user.fotografia,
-            presenca: true,
+            presenca: false,
             voto: 'Não Votou'
           })
-          votante.save()
+          
         }
         if(votante) {
           await VoteModel.findByIdAndUpdate(user._id, {
@@ -83,7 +82,7 @@ export const Login = async (req:Request, res:Response) => {
             }
           }
         }
-        
+      votante.save()
   }
 
 
