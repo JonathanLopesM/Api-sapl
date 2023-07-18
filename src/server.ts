@@ -17,6 +17,7 @@ import { Voting } from "./controllers/Panel/VoteParlamentaries/Voting";
 import PanelModel from "./models/PanelModel";
 import VoteModel from "./models/VoteModel";
 import { ReturnVotes } from "./controllers/Panel/VoteParlamentaries/ReturnVotes";
+import { GetUsers } from "./controllers/GetUsers";
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.post("/auth/login", Login)
 
 //Create User
 app.post("/auth/user", checkToken, CreateAuthUser)
+app.get("/auth/users", checkToken, GetUsers)
 
 
 //Control Panel
