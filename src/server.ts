@@ -19,6 +19,7 @@ import VoteModel from "./models/VoteModel";
 import { ReturnVotes } from "./controllers/Panel/VoteParlamentaries/ReturnVotes";
 import { GetUsers } from "./controllers/GetUsers";
 import { GetUserId } from "./controllers/GetUserId";
+import { Presence } from "./controllers/Panel/VoteParlamentaries/Presence";
 
 const app = express();
 
@@ -57,6 +58,7 @@ app.patch("/painel/dados/:id", PatchPainel)
 app.get("/parl/vote", ReturnVotes)
 app.get("/parl/vote/:id", GetUserId)
 app.patch("/parl/vote/:user", Voting)
+app.patch("/parl/presence/:user", Presence)
 
 // io.on('connection', (socket: Socket) => {
 //   console.log('Novo cliente conectado:', socket.id);
