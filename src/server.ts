@@ -18,6 +18,7 @@ import PanelModel from "./models/PanelModel";
 import VoteModel from "./models/VoteModel";
 import { ReturnVotes } from "./controllers/Panel/VoteParlamentaries/ReturnVotes";
 import { GetUsers } from "./controllers/GetUsers";
+import { GetUserId } from "./controllers/GetUserId";
 
 const app = express();
 
@@ -39,7 +40,8 @@ app.post("/auth/login", Login)
 
 //Create User
 app.post("/auth/user", checkToken, CreateAuthUser)
-app.get("/auth/users", checkToken, GetUsers)
+app.get("/auth/users", GetUsers)
+
 
 
 //Control Panel
@@ -51,7 +53,9 @@ app.patch("/painel/dados/:id", PatchPainel)
 
 
 //Voting
+
 app.get("/parl/vote", ReturnVotes)
+app.get("/parl/vote/:id", GetUserId)
 app.patch("/parl/vote/:user", Voting)
 
 // io.on('connection', (socket: Socket) => {
