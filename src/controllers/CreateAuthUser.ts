@@ -109,8 +109,6 @@ export const CreateAuthUser = async (req, res) => {
   }
 
   try {
-
-    
     await user.save()
     res.status(201).json({message: 'usuario criado com sucesso!'})
 
