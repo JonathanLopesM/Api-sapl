@@ -40,7 +40,7 @@ app.get("/", (req: Request, res: Response) => {
 app.post("/auth/login", Login)
 
 //Create User
-app.post("/auth/user", checkToken, CreateAuthUser)
+app.post("/auth/user", CreateAuthUser)
 app.get("/auth/users", GetUsers)
 
 
