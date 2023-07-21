@@ -79,6 +79,7 @@ export const CreateAuthUser = async (req, res) => {
       active,
       nivel
     })
+    await user.save()
   }
   if(nivel === 1){
     user = new UserParlam({
@@ -105,11 +106,12 @@ export const CreateAuthUser = async (req, res) => {
       cropping:parlamentar.data.cropping,
       nivel_instrucao:parlamentar.data.nivel_instrucao
     })
-    
+    await user.save()
   }
 
   try {
-    await user.save()
+    
+
     res.status(201).json({message: 'usuario criado com sucesso!'})
 
   } catch (error) {
