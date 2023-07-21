@@ -21,6 +21,7 @@ const ReturnVotes_1 = require("./controllers/Panel/VoteParlamentaries/ReturnVote
 const GetUsers_1 = require("./controllers/GetUsers");
 const GetUserId_1 = require("./controllers/GetUserId");
 const Presence_1 = require("./controllers/Panel/VoteParlamentaries/Presence");
+const SpeechParl_1 = require("./controllers/Panel/SpeechParl");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
@@ -38,6 +39,8 @@ app.post("/auth/login", Login_1.Login);
 //Create User
 app.post("/auth/user", CreateAuthUser_1.CreateAuthUser);
 app.get("/auth/users", GetUsers_1.GetUsers);
+// Criar o Delete do Auth
+// app.delete("auth")
 //Control Panel
 app.post("/painel/dados", DataPanel_1.DataPanel);
 app.get("/painel/dados", ReturnDataPanel_1.ReturnPainelDados);
@@ -48,6 +51,7 @@ app.get("/parl/vote", ReturnVotes_1.ReturnVotes);
 app.get("/parl/vote/:id", GetUserId_1.GetUserId);
 app.patch("/parl/vote/:user", Voting_1.Voting);
 app.patch("/parl/presence/:user", Presence_1.Presence);
+app.post("/speech/timer", SpeechParl_1.SpeechParl);
 // io.on('connection', (socket: Socket) => {
 //   console.log('Novo cliente conectado:', socket.id);
 //   const transmitirDadosAtualizados = async () => {

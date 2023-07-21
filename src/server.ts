@@ -20,6 +20,7 @@ import { ReturnVotes } from "./controllers/Panel/VoteParlamentaries/ReturnVotes"
 import { GetUsers } from "./controllers/GetUsers";
 import { GetUserId } from "./controllers/GetUserId";
 import { Presence } from "./controllers/Panel/VoteParlamentaries/Presence";
+import { SpeechParl } from "./controllers/Panel/SpeechParl";
 
 const app = express();
 
@@ -42,6 +43,8 @@ app.post("/auth/login", Login)
 //Create User
 app.post("/auth/user", CreateAuthUser)
 app.get("/auth/users", GetUsers)
+// Criar o Delete do Auth
+// app.delete("auth")
 
 
 
@@ -59,6 +62,8 @@ app.get("/parl/vote", ReturnVotes)
 app.get("/parl/vote/:id", GetUserId)
 app.patch("/parl/vote/:user", Voting)
 app.patch("/parl/presence/:user", Presence)
+
+app.post("/speech/timer", SpeechParl)
 
 // io.on('connection', (socket: Socket) => {
 //   console.log('Novo cliente conectado:', socket.id);

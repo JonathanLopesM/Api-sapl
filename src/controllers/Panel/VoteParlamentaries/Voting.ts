@@ -5,15 +5,18 @@ export const Voting = async (req, res) => {
   const { user } = req.params 
   const { voto, presenca } = req.body
 
-  const respo = await VoteModel.findOne({user:user})
-  console.log(respo, "updadted ")
+  const response = await VoteModel.findOne({user:user})
 
-  if(!respo.presenca){
+  if(!response.presenca){
     res.status(404).json({message: "É preciso estar presente para votar"})
   }
-  const response = await VoteModel.findOneAndUpdate({user:user}, {
-    voto: voto
-  })
+  if(presenca){
+    response.presenca = presenca
+  }
+  if(voto){
+    response.voto = voto
+  }
+  await response.save()
 
   res.status(200).json({message: `ok`, response})
 }
