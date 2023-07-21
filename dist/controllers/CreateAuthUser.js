@@ -47,6 +47,7 @@ const CreateAuthUser = async (req, res) => {
     const passwordHash = await bcrypt_1.default.hash(password, salt);
     //create User
     let user = {};
+    let voting = {};
     if (nivel === 5) {
         user = new UserModel_1.default({
             username,

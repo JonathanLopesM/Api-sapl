@@ -27,6 +27,7 @@ const mongoose_1 = __importStar(require("mongoose"));
 const userSchema = new mongoose_1.Schema({
     estado: Boolean,
     tela: Number,
-    materia: String
+    materia: String,
+    message: String
 });
 exports.default = mongoose_1.default.model('Painel', userSchema, 'painel');

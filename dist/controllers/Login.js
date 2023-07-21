@@ -19,7 +19,8 @@ const Login = async (req, res) => {
     }
     let user = {};
     var response = {};
-    user = await UserModel_1.default.findOne({ username: username });
+    user = await UserModel_1.default.findOne({ username });
+    console.log(user, 'user return findOne');
     if (user) {
         response = {
             _id: user._id,
@@ -30,6 +31,7 @@ const Login = async (req, res) => {
     }
     if (!user) {
         user = await UserParlamModel_1.default.findOne({ username: username });
+        console.log(user, 'user parl');
         if (!user) {
             return res.status(422).json({ msg: 'Usuário não encontrado, verifique Email/Senha' });
         }
@@ -40,12 +42,11 @@ const Login = async (req, res) => {
                 user: user._id,
                 name: user.nome_parlamentar,
                 fotografia: user.fotografia,
-                presenca: true,
+                presenca: false,
                 voto: 'Não Votou'
             });
-            votante.save();
         }
-        if (user) {
+        if (votante) {
             await VoteModel_1.default.findByIdAndUpdate(user._id, {
                 name: user.nome_parlamentar,
                 fotografia: user.fotografia,
@@ -64,6 +65,7 @@ const Login = async (req, res) => {
                 }
             };
         }
+        votante.save();
     }
     const checkPassword = await bcrypt_1.default.compare(password, user.password);
     if (!checkPassword) {
