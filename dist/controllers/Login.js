@@ -46,30 +46,19 @@ const Login = async (req, res) => {
                 voto: 'Não Votou'
             });
         }
-        // if(votante) {
-        //   await VoteModel.findByIdAndUpdate(user._id, {
-        //       name: user.nome_parlamentar,
-        //       fotografia: user.fotografia,
-        //       presenca: false,
-        //       voto: 'Não Votou'
-        //   }, { new: true })
-        //   const {
-        //     _id, id, active, nivel, __str__, 
-        //     nome_completo, nome_parlamentar,
-        //     sexo, data_nascimento, profissao, ativo,
-        //     biografia, fotografia, cropping, nivel_instrucao, 
-        //   } = user
-        //    response = {
-        //     user:{
-        //       _id, id,
-        //       username:user.username,
-        //       active, nivel, __str__, 
-        //       nome_completo, nome_parlamentar,
-        //       sexo, data_nascimento, profissao, ativo,
-        //       biografia, fotografia, cropping, nivel_instrucao, 
-        //     }
-        //   }
-        // }
+        if (votante) {
+            const { _id, id, active, nivel, __str__, nome_completo, nome_parlamentar, sexo, data_nascimento, profissao, ativo, biografia, fotografia, cropping, nivel_instrucao, } = user;
+            response = {
+                user: {
+                    _id, id,
+                    username: user.username,
+                    active, nivel, __str__,
+                    nome_completo, nome_parlamentar,
+                    sexo, data_nascimento, profissao, ativo,
+                    biografia, fotografia, cropping, nivel_instrucao,
+                }
+            };
+        }
         votante.save();
     }
     const checkPassword = await bcrypt_1.default.compare(password, user.password);

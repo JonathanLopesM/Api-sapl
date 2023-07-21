@@ -8,6 +8,7 @@ const VoteModel_1 = __importDefault(require("../../../models/VoteModel"));
 const Voting = async (req, res) => {
     const { user } = req.params;
     const { voto, presenca } = req.body;
+    console.log(voto, presenca, "n7 ");
     const response = await VoteModel_1.default.findOne({ user: user });
     if (!response.presenca) {
         res.status(404).json({ message: "É preciso estar presente para votar" });
@@ -18,6 +19,7 @@ const Voting = async (req, res) => {
     if (voto) {
         response.voto = voto;
     }
+    console.log(response, "response ");
     await response.save();
     res.status(200).json({ message: `ok`, response });
 };
