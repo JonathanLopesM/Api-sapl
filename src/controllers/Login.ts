@@ -55,33 +55,26 @@ export const Login = async (req:Request, res:Response) => {
           })
           
         }
-        // if(votante) {
-        //   await VoteModel.findByIdAndUpdate(user._id, {
-        //       name: user.nome_parlamentar,
-        //       fotografia: user.fotografia,
-        //       presenca: false,
-        //       voto: 'Não Votou'
-        //   }, { new: true })
-          
-
-        //   const {
-        //     _id, id, active, nivel, __str__, 
-        //     nome_completo, nome_parlamentar,
-        //     sexo, data_nascimento, profissao, ativo,
-        //     biografia, fotografia, cropping, nivel_instrucao, 
-        //   } = user
+        if(votante) {
+          const {
+            _id, id, active, nivel, __str__, 
+            nome_completo, nome_parlamentar,
+            sexo, data_nascimento, profissao, ativo,
+            biografia, fotografia, cropping, nivel_instrucao, 
+          } = user
         
-        //    response = {
-        //     user:{
-        //       _id, id,
-        //       username:user.username,
-        //       active, nivel, __str__, 
-        //       nome_completo, nome_parlamentar,
-        //       sexo, data_nascimento, profissao, ativo,
-        //       biografia, fotografia, cropping, nivel_instrucao, 
-        //     }
-        //   }
-        // }
+           response = {
+            user:{
+              _id, id,
+              username:user.username,
+              active, nivel, __str__, 
+              nome_completo, nome_parlamentar,
+              sexo, data_nascimento, profissao, ativo,
+              biografia, fotografia, cropping, nivel_instrucao, 
+            }
+          }
+        }
+      
       votante.save()
   }
 
