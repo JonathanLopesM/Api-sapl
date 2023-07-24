@@ -8,7 +8,7 @@ const PORT = 3333;
 
 import checkToken from "./middlewares/CheckToken";
 
-import { CreateAuthUser } from "./controllers/CreateAuthUser";
+import { CreateAuthUser } from "./controllers/Users/CreateAuthUser";
 import { Login } from "./controllers/Login";
 import { DataPanel } from "./controllers/Panel/DataPanel";
 import { PatchPainel } from "./controllers/Panel/PatchPanel";
@@ -17,10 +17,14 @@ import { Voting } from "./controllers/Panel/VoteParlamentaries/Voting";
 import PanelModel from "./models/PanelModel";
 import VoteModel from "./models/VoteModel";
 import { ReturnVotes } from "./controllers/Panel/VoteParlamentaries/ReturnVotes";
-import { GetUsers } from "./controllers/GetUsers";
-import { GetUserId } from "./controllers/GetUserId";
+import { GetUsers } from "./controllers/Users/GetUsers";
+import { GetUserId } from "./controllers/Users/GetUserId";
 import { Presence } from "./controllers/Panel/VoteParlamentaries/Presence";
 import { SpeechParl } from "./controllers/Panel/SpeechParl";
+import { DeleteUser } from "./controllers/Users/DeleteUser";
+import { UpdatedUser } from "./controllers/Users/UpdatedUser";
+import { GetSpeech } from "./controllers/Panel/SpeechParl/GetSpeech";
+import { PatchSpeech } from "./controllers/Panel/SpeechParl/PatchSpeech";
 
 const app = express();
 
@@ -41,10 +45,10 @@ app.get("/", (req: Request, res: Response) => {
 app.post("/auth/login", Login)
 
 //Create User
-app.post("/auth/user", CreateAuthUser)
+app.post("/auth/users", CreateAuthUser)
 app.get("/auth/users", GetUsers)
-// Criar o Delete do Auth
-// app.delete("auth")
+app.patch("/auth/users/:id", UpdatedUser)
+app.delete("/auth/users/:id", DeleteUser)
 
 
 
@@ -54,8 +58,6 @@ app.get("/painel/dados", ReturnPainelDados)
 
 app.patch("/painel/dados/:id", PatchPainel)
 // Socket io - Return do dados Sockets 
-
-
 //Voting
 
 app.get("/parl/vote", ReturnVotes)
@@ -64,6 +66,8 @@ app.patch("/parl/vote/:user", Voting)
 app.patch("/parl/presence/:user", Presence)
 
 app.post("/speech/timer", SpeechParl)
+app.get("/speech/timer", GetSpeech )
+app.patch("/speech/timer/:idparams", PatchSpeech)
 
 // io.on('connection', (socket: Socket) => {
 //   console.log('Novo cliente conectado:', socket.id);

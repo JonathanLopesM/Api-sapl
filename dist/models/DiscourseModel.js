@@ -26,15 +26,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const speechSchema = new mongoose_1.Schema({
     id: { type: Number },
-    user: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'UsersParl',
-        require: true
-    },
     name: String,
     fotografia: String,
     presenca: Boolean,
     speechTime: Boolean,
-    speechTimeInit: Number
+    speechTimeInit: Number,
+    speechTimeInitBoolean: Boolean
 });
 exports.default = mongoose_1.default.model('Speech', speechSchema, 'speech');

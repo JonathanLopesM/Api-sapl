@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReturnPainelDados = void 0;
 const PanelModel_1 = __importDefault(require("../../models/PanelModel"));
 const VoteModel_1 = __importDefault(require("../../models/VoteModel"));
+const DiscourseModel_1 = __importDefault(require("../../models/DiscourseModel"));
 const ReturnPainelDados = async (req, res) => {
     const { id } = req.params;
     const statePanel = await PanelModel_1.default.findOne();
@@ -70,12 +71,14 @@ const ReturnPainelDados = async (req, res) => {
         res.status(200).json(dados);
     }
     if (tela === 3) {
+        const speechParl = await DiscourseModel_1.default.findOne();
         dados = {
             idPanel: _id,
             tela: tela,
             estado,
             materia,
-            message
+            message,
+            speechParl
         };
         res.status(200).json(dados);
     }

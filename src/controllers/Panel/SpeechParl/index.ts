@@ -11,22 +11,21 @@ export const SpeechParl = async (req, res) => {
     speechTimeInit, } = req.body as any
     console.log(
       id,
-    user,
     name,
     fotografia,
     presenca,
     speechTime,
     speechTimeInit
     )
-    const response = new DiscourseModel({id,
-      user,
+    const response = new DiscourseModel({
+      id,
       name,
       fotografia,
       presenca,
       speechTime,
       speechTimeInit})
 
-  
+      await response.save()
 
 
   res.status(200).json({ message: "ok atualizou", response})

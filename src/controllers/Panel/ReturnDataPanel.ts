@@ -2,6 +2,7 @@ import express,{ Request, Response } from "express";
 import PanelModel from "../../models/PanelModel";
 
 import VoteModel from "../../models/VoteModel";
+import DiscourseModel from "../../models/DiscourseModel";
 
 
 export const ReturnPainelDados = async (req:Request, res:Response) => {
@@ -75,14 +76,18 @@ export const ReturnPainelDados = async (req:Request, res:Response) => {
            res.status(200).json(dados)
         }
         if(tela === 3){
+
+          const speechParl = await DiscourseModel.findOne()
           
           dados = {
             idPanel: _id,
            tela:tela,
            estado,
            materia,
-           message
+           message,
+           speechParl
          }
+         
           res.status(200).json(dados)
        }
        if(tela === 4){

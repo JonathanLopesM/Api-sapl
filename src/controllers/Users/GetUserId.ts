@@ -1,5 +1,5 @@
-import UserParlamModel from "../models/UserParlamModel"
-import VoteModel from "../models/VoteModel"
+import UserParlamModel from "../../models/UserParlamModel"
+import VoteModel from "../../models/VoteModel"
 
 
 export const GetUserId = async (req, res) => {

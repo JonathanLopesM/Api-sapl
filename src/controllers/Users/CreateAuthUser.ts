@@ -1,9 +1,9 @@
 import axios from "axios";
 import bcrypt from "bcrypt"
 
-import User from "../models/UserModel";
-import UserParlam from "../models/UserParlamModel";
-import VoteModel from "../models/VoteModel";
+import User from "../../models/UserModel";
+import UserParlam from "../../models/UserParlamModel";
+import VoteModel from "../../models/VoteModel";
 
 interface PARL {
   id: number;

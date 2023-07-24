@@ -11,17 +11,21 @@ const http_1 = __importDefault(require("http"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const socket_io_1 = require("socket.io");
 const PORT = 3333;
-const CreateAuthUser_1 = require("./controllers/CreateAuthUser");
+const CreateAuthUser_1 = require("./controllers/Users/CreateAuthUser");
 const Login_1 = require("./controllers/Login");
 const DataPanel_1 = require("./controllers/Panel/DataPanel");
 const PatchPanel_1 = require("./controllers/Panel/PatchPanel");
 const ReturnDataPanel_1 = require("./controllers/Panel/ReturnDataPanel");
 const Voting_1 = require("./controllers/Panel/VoteParlamentaries/Voting");
 const ReturnVotes_1 = require("./controllers/Panel/VoteParlamentaries/ReturnVotes");
-const GetUsers_1 = require("./controllers/GetUsers");
-const GetUserId_1 = require("./controllers/GetUserId");
+const GetUsers_1 = require("./controllers/Users/GetUsers");
+const GetUserId_1 = require("./controllers/Users/GetUserId");
 const Presence_1 = require("./controllers/Panel/VoteParlamentaries/Presence");
 const SpeechParl_1 = require("./controllers/Panel/SpeechParl");
+const DeleteUser_1 = require("./controllers/Users/DeleteUser");
+const UpdatedUser_1 = require("./controllers/Users/UpdatedUser");
+const GetSpeech_1 = require("./controllers/Panel/SpeechParl/GetSpeech");
+const PatchSpeech_1 = require("./controllers/Panel/SpeechParl/PatchSpeech");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
@@ -37,10 +41,10 @@ app.get("/", (req, res) => {
 //LOGIN users
 app.post("/auth/login", Login_1.Login);
 //Create User
-app.post("/auth/user", CreateAuthUser_1.CreateAuthUser);
+app.post("/auth/users", CreateAuthUser_1.CreateAuthUser);
 app.get("/auth/users", GetUsers_1.GetUsers);
-// Criar o Delete do Auth
-// app.delete("auth")
+app.patch("/auth/users/:id", UpdatedUser_1.UpdatedUser);
+app.delete("/auth/users/:id", DeleteUser_1.DeleteUser);
 //Control Panel
 app.post("/painel/dados", DataPanel_1.DataPanel);
 app.get("/painel/dados", ReturnDataPanel_1.ReturnPainelDados);
@@ -52,6 +56,8 @@ app.get("/parl/vote/:id", GetUserId_1.GetUserId);
 app.patch("/parl/vote/:user", Voting_1.Voting);
 app.patch("/parl/presence/:user", Presence_1.Presence);
 app.post("/speech/timer", SpeechParl_1.SpeechParl);
+app.get("/speech/timer", GetSpeech_1.GetSpeech);
+app.patch("/speech/timer/:idparams", PatchSpeech_1.PatchSpeech);
 // io.on('connection', (socket: Socket) => {
 //   console.log('Novo cliente conectado:', socket.id);
 //   const transmitirDadosAtualizados = async () => {

@@ -1,5 +1,5 @@
-import UserModel from "../models/UserModel"
-import UserParlamModel from "../models/UserParlamModel"
+import UserModel from "../../models/UserModel"
+import UserParlamModel from "../../models/UserParlamModel"
 
 
 export const GetUsers = async (req, res) => {
