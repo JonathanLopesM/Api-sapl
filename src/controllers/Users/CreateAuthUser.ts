@@ -72,7 +72,7 @@ export const CreateAuthUser = async (req, res) => {
   //create User
   let user = {} as any
   let voting = {} as any
-  if(nivel === 5){
+  if(nivel !== 1){
     user = new User({
       username,
       password:passwordHash,
