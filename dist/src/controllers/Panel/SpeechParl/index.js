@@ -7,7 +7,6 @@ exports.SpeechParl = void 0;
 const DiscourseModel_1 = __importDefault(require("../../../models/DiscourseModel"));
 const SpeechParl = async (req, res) => {
     const { id, user, name, fotografia, presenca, speechTime, speechTimeInit, } = req.body;
-    console.log(id, name, fotografia, presenca, speechTime, speechTimeInit);
     const response = new DiscourseModel_1.default({
         id,
         name,

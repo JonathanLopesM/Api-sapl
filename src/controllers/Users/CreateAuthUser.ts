@@ -30,6 +30,7 @@ interface PARL {
 
 export const CreateAuthUser = async (req, res) => {
   const { username, password, confirmpassword, active, nivel, id } = req.body;
+  console.log(username, password, confirmpassword, active, nivel, id, "parlamentar chegou")
   let parlamentar = null
   if(!username){
     return res.status(422).json({ message: 'O Username é obrigatório'})
@@ -81,7 +82,7 @@ export const CreateAuthUser = async (req, res) => {
     })
     await user.save()
   }
-  if(nivel === 1){
+  if(nivel == 1){
     user = new UserParlam({
       id:parlamentar.data.id,
       username,

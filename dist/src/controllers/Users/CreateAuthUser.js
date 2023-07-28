@@ -10,6 +10,7 @@ const UserModel_1 = __importDefault(require("../../models/UserModel"));
 const UserParlamModel_1 = __importDefault(require("../../models/UserParlamModel"));
 const CreateAuthUser = async (req, res) => {
     const { username, password, confirmpassword, active, nivel, id } = req.body;
+    console.log(username, password, confirmpassword, active, nivel, id, "parlamentar chegou");
     let parlamentar = null;
     if (!username) {
         return res.status(422).json({ message: 'O Username é obrigatório' });
@@ -57,7 +58,7 @@ const CreateAuthUser = async (req, res) => {
         });
         await user.save();
     }
-    if (nivel === 1) {
+    if (nivel == 1) {
         user = new UserParlamModel_1.default({
             id: parlamentar.data.id,
             username,

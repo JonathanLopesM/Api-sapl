@@ -24,16 +24,23 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const userSchema = new mongoose_1.Schema({
+const speechSchema = new mongoose_1.Schema({
     id: { type: Number },
-    user: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'UsersParl',
-        require: true
-    },
     name: String,
     fotografia: String,
     presenca: Boolean,
-    voto: String
+    speechTime: Boolean,
+    speechTimeInit: Number,
+    speechTimeInitBoolean: Boolean,
+    partTime: Boolean,
+    partTimeInit: Number,
+    partTimeInitBoolean: Boolean,
+    orderQuestionTime: Boolean,
+    orderQuestionTimeInit: Number,
+    orderQuestionTimeInitBoolean: Boolean,
+    finalConsiderationsTime: Boolean,
+    finalConsiderationsTimeInit: Number,
+    finalConsiderationsTimeInitBoolean: Boolean,
+    soundPlay: Boolean
 });
-exports.default = mongoose_1.default.model('Votante', userSchema, 'votante');
+exports.default = mongoose_1.default.model('Speech', speechSchema, 'speech');

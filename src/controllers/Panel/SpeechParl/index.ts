@@ -9,14 +9,7 @@ export const SpeechParl = async (req, res) => {
     presenca,
     speechTime,
     speechTimeInit, } = req.body as any
-    console.log(
-      id,
-    name,
-    fotografia,
-    presenca,
-    speechTime,
-    speechTimeInit
-    )
+    
     const response = new DiscourseModel({
       id,
       name,
