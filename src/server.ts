@@ -25,6 +25,8 @@ import { DeleteUser } from "./controllers/Users/DeleteUser";
 import { UpdatedUser } from "./controllers/Users/UpdatedUser";
 import { GetSpeech } from "./controllers/Panel/SpeechParl/GetSpeech";
 import { PatchSpeech } from "./controllers/Panel/SpeechParl/PatchSpeech";
+import { GetSessoes } from "./controllers/Sessoes/GetSessoes";
+import { GetMaterias } from "./controllers/Materias";
 
 const app = express();
 
@@ -69,6 +71,9 @@ app.post("/speech/timer", SpeechParl)
 app.get("/speech/timer", GetSpeech )
 app.patch("/speech/timer/:idparams", PatchSpeech)
 
+app.get("/api/sessao/sessaoplenaria/", GetSessoes)
+
+app.get("/api/materia/materialegislativa/", GetMaterias)
 // io.on('connection', (socket: Socket) => {
 //   console.log('Novo cliente conectado:', socket.id);
 //   const transmitirDadosAtualizados = async () => {

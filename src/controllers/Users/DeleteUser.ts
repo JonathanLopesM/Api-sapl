@@ -8,9 +8,10 @@ export const DeleteUser = async (req, res) => {
 try {
   let response;
   response = await UserModel.findByIdAndDelete(id)
-  console.log(response)
+  console.log(response , "se encotntrou no userModel")
   if(!response){
-    response = await UserParlamModel.findByIdAndDelete()
+    response = await UserParlamModel.findByIdAndDelete(id)
+    console.log(response , "se encotntrou no UserParl")
   }
 
   res.status(204).json({message: "user delete success ", response})

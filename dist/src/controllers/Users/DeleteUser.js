@@ -12,9 +12,10 @@ const DeleteUser = async (req, res) => {
     try {
         let response;
         response = await UserModel_1.default.findByIdAndDelete(id);
-        console.log(response);
+        console.log(response, "se encotntrou no userModel");
         if (!response) {
-            response = await UserParlamModel_1.default.findByIdAndDelete();
+            response = await UserParlamModel_1.default.findByIdAndDelete(id);
+            console.log(response, "se encotntrou no UserParl");
         }
         res.status(204).json({ message: "user delete success ", response });
     }

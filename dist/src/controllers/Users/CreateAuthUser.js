@@ -10,7 +10,7 @@ const UserModel_1 = __importDefault(require("../../models/UserModel"));
 const UserParlamModel_1 = __importDefault(require("../../models/UserParlamModel"));
 const CreateAuthUser = async (req, res) => {
     const { username, password, confirmpassword, active, nivel, id } = req.body;
-    console.log(username, password, confirmpassword, active, nivel, id, "parlamentar chegou");
+    const url = process.env.URL_INTERLEGIS;
     let parlamentar = null;
     if (!username) {
         return res.status(422).json({ message: 'O Username é obrigatório' });
@@ -41,7 +41,7 @@ const CreateAuthUser = async (req, res) => {
         }
     }
     if (id) {
-        parlamentar = await axios_1.default.get(`https://sapl.valenca.rj.leg.br/api/parlamentares/parlamentar/${id}`);
+        parlamentar = await axios_1.default.get(`${url}/api/parlamentares/parlamentar/${id}`);
     }
     // create password
     const salt = await bcrypt_1.default.genSalt(12);
@@ -49,7 +49,7 @@ const CreateAuthUser = async (req, res) => {
     //create User
     let user = {};
     let voting = {};
-    if (nivel !== 1) {
+    if (nivel == 2) {
         user = new UserModel_1.default({
             username,
             password: passwordHash,

@@ -1,9 +1,7 @@
 import axios from "axios";
 import bcrypt from "bcrypt"
-
 import User from "../../models/UserModel";
 import UserParlam from "../../models/UserParlamModel";
-import VoteModel from "../../models/VoteModel";
 
 interface PARL {
   id: number;
@@ -25,12 +23,11 @@ interface PARL {
   fotografia:string;
   cropping:string;
   nivel_instrucao:number;
-
 }
 
 export const CreateAuthUser = async (req, res) => {
   const { username, password, confirmpassword, active, nivel, id } = req.body;
-  console.log(username, password, confirmpassword, active, nivel, id, "parlamentar chegou")
+  const url = process.env.URL_INTERLEGIS
   let parlamentar = null
   if(!username){
     return res.status(422).json({ message: 'O Username é obrigatório'})
@@ -64,7 +61,7 @@ export const CreateAuthUser = async (req, res) => {
     }
   }
   if(id) {
-     parlamentar = await axios.get(`https://sapl.valenca.rj.leg.br/api/parlamentares/parlamentar/${id}`) as PARL
+     parlamentar = await axios.get(`${url}/api/parlamentares/parlamentar/${id}`) as PARL
   }
   // create password
   const salt = await bcrypt.genSalt(12)
@@ -73,7 +70,7 @@ export const CreateAuthUser = async (req, res) => {
   //create User
   let user = {} as any
   let voting = {} as any
-  if(nivel !== 1){
+  if(nivel == 2){
     user = new User({
       username,
       password:passwordHash,
@@ -111,10 +108,7 @@ export const CreateAuthUser = async (req, res) => {
   }
 
   try {
-    
-
     res.status(201).json({message: 'usuario criado com sucesso!'})
-
   } catch (error) {
       console.log(error)
       res.status(500).json({message: 'Erro no servidores'})

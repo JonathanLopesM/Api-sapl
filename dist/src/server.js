@@ -26,6 +26,8 @@ const DeleteUser_1 = require("./controllers/Users/DeleteUser");
 const UpdatedUser_1 = require("./controllers/Users/UpdatedUser");
 const GetSpeech_1 = require("./controllers/Panel/SpeechParl/GetSpeech");
 const PatchSpeech_1 = require("./controllers/Panel/SpeechParl/PatchSpeech");
+const GetSessoes_1 = require("./controllers/Sessoes/GetSessoes");
+const Materias_1 = require("./controllers/Materias");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
@@ -58,6 +60,8 @@ app.patch("/parl/presence/:user", Presence_1.Presence);
 app.post("/speech/timer", SpeechParl_1.SpeechParl);
 app.get("/speech/timer", GetSpeech_1.GetSpeech);
 app.patch("/speech/timer/:idparams", PatchSpeech_1.PatchSpeech);
+app.get("/api/sessao/sessaoplenaria/", GetSessoes_1.GetSessoes);
+app.get("/api/materia/materialegislativa/", Materias_1.GetMaterias);
 // io.on('connection', (socket: Socket) => {
 //   console.log('Novo cliente conectado:', socket.id);
 //   const transmitirDadosAtualizados = async () => {
