@@ -38,7 +38,7 @@ exports.io = new socket_io_1.Server(server, {
     }
 });
 app.get("/", (req, res) => {
-    return res.json({ message: "Hello World" });
+    return res.json({ message: "welcome api Novace 1.0.2" });
 });
 //LOGIN users
 app.post("/auth/login", Login_1.Login);

@@ -41,7 +41,7 @@ export const io = new Server(server, {
 })
 
 app.get("/", (req: Request, res: Response) => {
-  return res.json({ message: "Hello World"});
+  return res.json({ message: "welcome api Novace 1.0.2"});
 })
 //LOGIN users
 app.post("/auth/login", Login)
