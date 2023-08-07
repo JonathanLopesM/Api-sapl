@@ -28,6 +28,7 @@ const userSchema = new mongoose_1.Schema({
     estado: Boolean,
     tela: Number,
     materia: String,
-    message: String
+    message: String,
+    registro: Boolean
 });
 exports.default = mongoose_1.default.model('Painel', userSchema, 'painel');

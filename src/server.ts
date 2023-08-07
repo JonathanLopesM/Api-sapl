@@ -27,6 +27,11 @@ import { GetSpeech } from "./controllers/Panel/SpeechParl/GetSpeech";
 import { PatchSpeech } from "./controllers/Panel/SpeechParl/PatchSpeech";
 import { GetSessoes } from "./controllers/Sessoes/GetSessoes";
 import { GetMaterias } from "./controllers/Materias";
+import { votesapl } from "./controllers/SaplVote";
+import axios from "axios";
+import { ZeroVote } from "./controllers/Panel/VoteParlamentaries/ZeroVote";
+const url = process.env.URL_INTERLEGIS
+const token = process.env.TOKEN_INTERLEGIS
 
 const app = express();
 
@@ -52,28 +57,51 @@ app.get("/auth/users", GetUsers)
 app.patch("/auth/users/:id", UpdatedUser)
 app.delete("/auth/users/:id", DeleteUser)
 
-
-
 //Control Panel
 app.post("/painel/dados", DataPanel)
 app.get("/painel/dados", ReturnPainelDados)
 
 app.patch("/painel/dados/:id", PatchPainel)
 // Socket io - Return do dados Sockets 
-//Voting
 
+//Voting
 app.get("/parl/vote", ReturnVotes)
 app.get("/parl/vote/:id", GetUserId)
 app.patch("/parl/vote/:user", Voting)
 app.patch("/parl/presence/:user", Presence)
 
+//timers speech
 app.post("/speech/timer", SpeechParl)
 app.get("/speech/timer", GetSpeech )
 app.patch("/speech/timer/:idparams", PatchSpeech)
 
-app.get("/api/sessao/sessaoplenaria/", GetSessoes)
+app.get("/api/sessao/sessaoplenaria/:id", GetSessoes)
 
+//save vote on database and reload or cancel vote parl
+app.post("/api/sessao/votacao", votesapl)
+app.get("/api/sessao/zerar", ZeroVote)
+
+//Get materias legislativas 
 app.get("/api/materia/materialegislativa/", GetMaterias)
+// delete all votes database testing 
+app.delete("/api/delete/massa/:id",async (req, res)=> {
+  const {id} = req.params;
+  await axios.get(`${url}/api/sessao/votoparlamentar/?ordem=${id}&page_size=100`)
+  .then( async (res) =>{
+    console.log(res.data.results, "respo do delete")
+    const Pars = res.data.results
+    for(let par of Pars) {
+      await axios.delete(`${url}/api/sessao/votoparlamentar/${par.id}`,{
+        headers: {
+          'Authorization': `Token `+ token
+        }
+      })
+    }
+  })
+  res.status(200).json({ message: "ok delete "})
+})
+
+
 // io.on('connection', (socket: Socket) => {
 //   console.log('Novo cliente conectado:', socket.id);
 //   const transmitirDadosAtualizados = async () => {

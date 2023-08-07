@@ -5,12 +5,14 @@ export interface IPainel {
   tela:number;
   materia: string;
   message: string;
+  registro: boolean;
 }
 const userSchema = new Schema({
   estado: Boolean,
   tela: Number,
   materia: String,
-  message: String
+  message: String,
+  registro: Boolean
 })
 
 export default mongoose.model<IPainel>('Painel', userSchema, 'painel' )

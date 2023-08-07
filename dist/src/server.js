@@ -28,6 +28,11 @@ const GetSpeech_1 = require("./controllers/Panel/SpeechParl/GetSpeech");
 const PatchSpeech_1 = require("./controllers/Panel/SpeechParl/PatchSpeech");
 const GetSessoes_1 = require("./controllers/Sessoes/GetSessoes");
 const Materias_1 = require("./controllers/Materias");
+const SaplVote_1 = require("./controllers/SaplVote");
+const axios_1 = __importDefault(require("axios"));
+const ZeroVote_1 = require("./controllers/Panel/VoteParlamentaries/ZeroVote");
+const url = process.env.URL_INTERLEGIS;
+const token = process.env.TOKEN_INTERLEGIS;
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
@@ -57,11 +62,33 @@ app.get("/parl/vote", ReturnVotes_1.ReturnVotes);
 app.get("/parl/vote/:id", GetUserId_1.GetUserId);
 app.patch("/parl/vote/:user", Voting_1.Voting);
 app.patch("/parl/presence/:user", Presence_1.Presence);
+//timers speech
 app.post("/speech/timer", SpeechParl_1.SpeechParl);
 app.get("/speech/timer", GetSpeech_1.GetSpeech);
 app.patch("/speech/timer/:idparams", PatchSpeech_1.PatchSpeech);
-app.get("/api/sessao/sessaoplenaria/", GetSessoes_1.GetSessoes);
+app.get("/api/sessao/sessaoplenaria/:id", GetSessoes_1.GetSessoes);
+//save vote on database and reload or cancel vote parl
+app.post("/api/sessao/votacao", SaplVote_1.votesapl);
+app.get("/api/sessao/zerar", ZeroVote_1.ZeroVote);
+//Get materias legislativas 
 app.get("/api/materia/materialegislativa/", Materias_1.GetMaterias);
+// delete all votes database testing 
+app.delete("/api/delete/massa/:id", async (req, res) => {
+    const { id } = req.params;
+    await axios_1.default.get(`${url}/api/sessao/votoparlamentar/?ordem=${id}&page_size=100`)
+        .then(async (res) => {
+        console.log(res.data.results, "respo do delete");
+        const Pars = res.data.results;
+        for (let par of Pars) {
+            await axios_1.default.delete(`${url}/api/sessao/votoparlamentar/${par.id}`, {
+                headers: {
+                    'Authorization': `Token ` + token
+                }
+            });
+        }
+    });
+    res.status(200).json({ message: "ok delete " });
+});
 // io.on('connection', (socket: Socket) => {
 //   console.log('Novo cliente conectado:', socket.id);
 //   const transmitirDadosAtualizados = async () => {

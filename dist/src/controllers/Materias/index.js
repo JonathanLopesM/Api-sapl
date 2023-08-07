@@ -7,8 +7,7 @@ exports.GetMaterias = void 0;
 const axios_1 = __importDefault(require("axios"));
 const GetMaterias = async (req, res) => {
     const url = process.env.URL_INTERLEGIS;
-    console.log(`https://sapl.barramansa.rj.leg.br//api/materia/materialegislativa/?o=-data_apresentacao&page_size=100`);
-    const response = await axios_1.default.get(`${url}/api/materia/materialegislativa/?o=-data_apresentacao&page_size=100`);
+    const response = await axios_1.default.get(`${url}/api/materia/materialegislativa/?ano=2023&&o=-data_apresentacao&&page_size=200`);
     // console.log(response.data.results, "result")
     res.status(200).json(response?.data?.results);
 };

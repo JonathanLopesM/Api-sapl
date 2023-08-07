@@ -16,9 +16,9 @@ export const ReturnVotes = async (req, res) => {
   const Not = responseVote.filter(parl => {
     return parl.voto == 'Não'
   })
-  // const abstain = responseVote.filter(parl => {
-  //   return parl.voto == 'Abster'
-  // })
+  const abstain = responseVote.filter(parl => {
+    return parl.voto == 'Abster'
+  })
   const Presence = responseVote.filter(parl => {
     return parl.presenca == true
   })
@@ -36,5 +36,5 @@ export const ReturnVotes = async (req, res) => {
     estado,
     materia,
   }
-  return res.status(200).json({ response })
+  return res.status(200).json({ response, responseVote })
 }

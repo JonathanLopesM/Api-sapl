@@ -7,10 +7,12 @@ exports.ReturnPainelDados = void 0;
 const PanelModel_1 = __importDefault(require("../../models/PanelModel"));
 const VoteModel_1 = __importDefault(require("../../models/VoteModel"));
 const DiscourseModel_1 = __importDefault(require("../../models/DiscourseModel"));
+const axios_1 = __importDefault(require("axios"));
+const url = process.env.URL_INTERLEGIS;
 const ReturnPainelDados = async (req, res) => {
     const { id } = req.params;
     const statePanel = await PanelModel_1.default.findOne();
-    const { _id, tela, estado, materia, message } = statePanel;
+    const { _id, tela, estado, materia, message, registro } = statePanel;
     let dados = {};
     if (tela === 0) {
         //bem vindos a casa do Povo
@@ -21,6 +23,7 @@ const ReturnPainelDados = async (req, res) => {
             materia,
             message,
             view: 'Bem vindos a casa do Povo!',
+            registro
         };
         dados = obj;
         res.status(200).json(dados);
@@ -28,13 +31,46 @@ const ReturnPainelDados = async (req, res) => {
     if (tela === 1) {
         // presença e votação
         const stateVote = await VoteModel_1.default.find();
+        let matter;
+        let result;
+        if (materia) {
+            const respo = await axios_1.default.get(`${url}/api/materia/materialegislativa/${materia}`);
+            matter = respo.data;
+        }
+        if (registro) {
+            const resultResp = await axios_1.default.get(`${url}/api/sessao/ordemdia/?materia=6041`);
+            result = resultResp.data.results[0];
+        }
+        const NVote = stateVote.filter(parl => {
+            return parl.voto == 'Não Votou';
+        });
+        const Yes = stateVote.filter(parl => {
+            return parl.voto == 'Sim';
+        });
+        const Not = stateVote.filter(parl => {
+            return parl.voto == 'Não';
+        });
+        const Presence = stateVote.filter(parl => {
+            return parl.presenca == true;
+        });
+        const totalVotes = NVote.length + Yes.length + Not.length;
+        const response = {
+            NVote: NVote.length,
+            Yes: Yes.length,
+            Not: Not.length,
+            Presence: Presence.length,
+            totalVotes
+        };
         dados = {
             idPanel: _id,
             tela: tela,
             estado,
-            materia,
+            materia: matter,
             message,
-            stateVote
+            stateVote,
+            response,
+            registro,
+            result
         };
         res.status(200).json(dados);
     }
@@ -66,7 +102,8 @@ const ReturnPainelDados = async (req, res) => {
             estado,
             materia,
             message,
-            response
+            response,
+            registro
         };
         res.status(200).json(dados);
     }
@@ -78,7 +115,8 @@ const ReturnPainelDados = async (req, res) => {
             estado,
             materia,
             message,
-            speechParl
+            speechParl,
+            registro
         };
         res.status(200).json(dados);
     }
@@ -88,7 +126,8 @@ const ReturnPainelDados = async (req, res) => {
             tela: tela,
             estado,
             materia,
-            message
+            message,
+            registro
         };
         res.status(200).json(dados);
     }
@@ -98,7 +137,8 @@ const ReturnPainelDados = async (req, res) => {
             tela: tela,
             estado,
             materia,
-            message
+            message,
+            registro
         };
         res.status(200).json(dados);
     }
@@ -107,7 +147,9 @@ const ReturnPainelDados = async (req, res) => {
             idPanel: _id,
             tela: tela,
             estado,
-            materia
+            materia,
+            message,
+            registro
         };
         res.status(200).json(dados);
     }
