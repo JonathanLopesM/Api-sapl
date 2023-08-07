@@ -31,8 +31,8 @@ const ReturnPainelDados = async (req, res) => {
     if (tela === 1) {
         // presença e votação
         const stateVote = await VoteModel_1.default.find();
-        let matter;
         let result;
+        let matter;
         if (materia) {
             const respo = await axios_1.default.get(`${url}/api/materia/materialegislativa/${materia}`);
             matter = respo.data;
@@ -76,6 +76,11 @@ const ReturnPainelDados = async (req, res) => {
     }
     if (tela === 2) {
         const responseVote = await VoteModel_1.default.find();
+        let matter;
+        if (materia) {
+            const respo = await axios_1.default.get(`${url}/api/materia/materialegislativa/${materia}`);
+            matter = respo.data;
+        }
         const NVote = responseVote.filter(parl => {
             return parl.voto == 'Não Votou';
         });
@@ -100,7 +105,7 @@ const ReturnPainelDados = async (req, res) => {
             idPanel: _id,
             tela: tela,
             estado,
-            materia,
+            materia: matter,
             message,
             response,
             registro
@@ -109,11 +114,16 @@ const ReturnPainelDados = async (req, res) => {
     }
     if (tela === 3) {
         const speechParl = await DiscourseModel_1.default.findOne();
+        let matter;
+        if (materia) {
+            const respo = await axios_1.default.get(`${url}/api/materia/materialegislativa/${materia}`);
+            matter = respo.data;
+        }
         dados = {
             idPanel: _id,
             tela: tela,
             estado,
-            materia,
+            materia: matter,
             message,
             speechParl,
             registro
@@ -121,33 +131,48 @@ const ReturnPainelDados = async (req, res) => {
         res.status(200).json(dados);
     }
     if (tela === 4) {
+        let matter;
+        if (materia) {
+            const respo = await axios_1.default.get(`${url}/api/materia/materialegislativa/${materia}`);
+            matter = respo.data;
+        }
         dados = {
             idPanel: _id,
             tela: tela,
             estado,
-            materia,
+            materia: matter,
             message,
             registro
         };
         res.status(200).json(dados);
     }
     if (tela === 5) {
+        let matter;
+        if (materia) {
+            const respo = await axios_1.default.get(`${url}/api/materia/materialegislativa/${materia}`);
+            matter = respo.data;
+        }
         dados = {
             idPanel: _id,
             tela: tela,
             estado,
-            materia,
+            materia: matter,
             message,
             registro
         };
         res.status(200).json(dados);
     }
     if (tela === 6) {
+        let matter;
+        if (materia) {
+            const respo = await axios_1.default.get(`${url}/api/materia/materialegislativa/${materia}`);
+            matter = respo.data;
+        }
         dados = {
             idPanel: _id,
             tela: tela,
             estado,
-            materia,
+            materia: matter,
             message,
             registro
         };

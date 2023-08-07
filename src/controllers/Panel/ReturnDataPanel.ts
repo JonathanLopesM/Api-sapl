@@ -8,9 +8,7 @@ const url = process.env.URL_INTERLEGIS
 
 export const ReturnPainelDados = async (req:Request, res:Response) => {
   const { id } = req.params;
-
   const statePanel = await PanelModel.findOne();
-
   const { _id, tela, estado, materia, message, registro} = statePanel;
 
       let dados= {};
@@ -32,8 +30,8 @@ export const ReturnPainelDados = async (req:Request, res:Response) => {
         if(tela === 1){
           // presença e votação
           const stateVote = await VoteModel.find()
-          let matter;
           let result;
+          let matter;
           if(materia){
             const respo = await axios.get(`${url}/api/materia/materialegislativa/${materia}`)
             matter = respo.data
@@ -79,6 +77,11 @@ export const ReturnPainelDados = async (req:Request, res:Response) => {
         }
         if(tela === 2){
           const responseVote = await VoteModel.find()
+          let matter;
+          if(materia){
+            const respo = await axios.get(`${url}/api/materia/materialegislativa/${materia}`)
+            matter = respo.data
+          }
 
           const NVote = responseVote.filter(parl => {
             return parl.voto == 'Não Votou'
@@ -105,7 +108,7 @@ export const ReturnPainelDados = async (req:Request, res:Response) => {
             idPanel: _id,
             tela:tela,
             estado,
-            materia,
+            materia: matter,
             message,
             response,
             registro
@@ -115,12 +118,17 @@ export const ReturnPainelDados = async (req:Request, res:Response) => {
         if(tela === 3){
 
           const speechParl = await DiscourseModel.findOne()
+          let matter;
+          if(materia){
+            const respo = await axios.get(`${url}/api/materia/materialegislativa/${materia}`)
+            matter = respo.data
+          }
           
           dados = {
             idPanel: _id,
            tela:tela,
            estado,
-           materia,
+           materia: matter,
            message,
            speechParl,
            registro
@@ -129,36 +137,49 @@ export const ReturnPainelDados = async (req:Request, res:Response) => {
           res.status(200).json(dados)
        }
        if(tela === 4){
+        let matter;
+        if(materia){
+          const respo = await axios.get(`${url}/api/materia/materialegislativa/${materia}`)
+          matter = respo.data
+        }
           
         dados = {
           idPanel: _id,
          tela:tela,
          estado,
-         materia,
+         materia: matter,
          message,
          registro
          }
         res.status(200).json(dados)
        }
       if(tela === 5){
-            
+        let matter;
+        if(materia){
+          const respo = await axios.get(`${url}/api/materia/materialegislativa/${materia}`)
+          matter = respo.data
+        }
         dados = {
           idPanel: _id,
         tela:tela,
         estado,
-        materia,
+        materia:matter,
         message,
         registro
       }
         res.status(200).json(dados)
       }
       if(tela === 6){
-          
+        let matter;
+        if(materia){
+          const respo = await axios.get(`${url}/api/materia/materialegislativa/${materia}`)
+          matter = respo.data
+        }
         dados = {
           idPanel: _id,
          tela:tela,
          estado,
-         materia,
+         materia:matter,
          message,
          registro
          }
