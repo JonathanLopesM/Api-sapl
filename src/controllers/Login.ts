@@ -14,10 +14,10 @@ export const Login = async (req:Request, res:Response) => {
   const { username, password } = req.body as ReqBody;
 
   if(!username){
-    return res.status(422).json({ message: 'O Username é obrigatório'})
+    return res.status(404).json({ message: 'O Username é obrigatório'})
   }
   if(!password){
-    return res.status(422).json({ message: 'A Senha é obrigatória'})
+    return res.status(404).json({ message: 'A Senha é obrigatória'})
   }
 
   let user = {} as any
@@ -39,7 +39,7 @@ export const Login = async (req:Request, res:Response) => {
       user = await UserParlam.findOne({username: username})
       console.log(user, 'user parl')
       if(!user){
-        return res.status(422).json({ msg: 'Usuário não encontrado, verifique Email/Senha'})
+        return res.status(404).json({ message: 'Usuário não encontrado, verifique Email/Senha'})
       }
       let votante = await VoteModel.findOne({ id: user.id})
 
@@ -81,7 +81,7 @@ export const Login = async (req:Request, res:Response) => {
 
   const checkPassword = await bcrypt.compare(password, user.password)
   if(!checkPassword) {
-    return res.status(422).json({ message: 'Senha Inválida' })
+    return res.status(404).json({ message: 'Senha Inválida' })
   }
   
   try{

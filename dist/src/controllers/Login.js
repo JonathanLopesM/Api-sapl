@@ -12,10 +12,10 @@ const VoteModel_1 = __importDefault(require("../models/VoteModel"));
 const Login = async (req, res) => {
     const { username, password } = req.body;
     if (!username) {
-        return res.status(422).json({ message: 'O Username é obrigatório' });
+        return res.status(404).json({ message: 'O Username é obrigatório' });
     }
     if (!password) {
-        return res.status(422).json({ message: 'A Senha é obrigatória' });
+        return res.status(404).json({ message: 'A Senha é obrigatória' });
     }
     let user = {};
     var response = {};
@@ -33,7 +33,7 @@ const Login = async (req, res) => {
         user = await UserParlamModel_1.default.findOne({ username: username });
         console.log(user, 'user parl');
         if (!user) {
-            return res.status(422).json({ msg: 'Usuário não encontrado, verifique Email/Senha' });
+            return res.status(404).json({ message: 'Usuário não encontrado, verifique Email/Senha' });
         }
         let votante = await VoteModel_1.default.findOne({ id: user.id });
         if (!votante) {
@@ -63,7 +63,7 @@ const Login = async (req, res) => {
     }
     const checkPassword = await bcrypt_1.default.compare(password, user.password);
     if (!checkPassword) {
-        return res.status(422).json({ message: 'Senha Inválida' });
+        return res.status(404).json({ message: 'Senha Inválida' });
     }
     try {
         const secret = process.env.SECRET;
