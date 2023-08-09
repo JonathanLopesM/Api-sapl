@@ -30,6 +30,9 @@ import { GetMaterias } from "./controllers/Materias";
 import { votesapl } from "./controllers/SaplVote";
 import axios from "axios";
 import { ZeroVote } from "./controllers/Panel/VoteParlamentaries/ZeroVote";
+import { ParlamentariesList } from "./controllers/PublicRoutes/ParlametariesList";
+import { BoardOfDirect } from "./controllers/PublicRoutes/BoardOfDirect";
+import { MattersLegis } from "./controllers/PublicRoutes/Matters";
 const url = process.env.URL_INTERLEGIS
 const token = process.env.TOKEN_INTERLEGIS
 
@@ -83,6 +86,14 @@ app.get("/api/sessao/zerar", ZeroVote)
 
 //Get materias legislativas 
 app.get("/api/materia/materialegislativa/", GetMaterias)
+
+// Public Routes
+
+app.get("/api/parlamentaries/list", ParlamentariesList)
+app.get("/api/parlamentaries/board", BoardOfDirect)
+app.get("/api/materias/autoria/:id", MattersLegis)
+
+
 // delete all votes database testing 
 app.delete("/api/delete/massa/:id",async (req, res)=> {
   const {id} = req.params;

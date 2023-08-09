@@ -31,6 +31,9 @@ const Materias_1 = require("./controllers/Materias");
 const SaplVote_1 = require("./controllers/SaplVote");
 const axios_1 = __importDefault(require("axios"));
 const ZeroVote_1 = require("./controllers/Panel/VoteParlamentaries/ZeroVote");
+const ParlametariesList_1 = require("./controllers/PublicRoutes/ParlametariesList");
+const BoardOfDirect_1 = require("./controllers/PublicRoutes/BoardOfDirect");
+const Matters_1 = require("./controllers/PublicRoutes/Matters");
 const url = process.env.URL_INTERLEGIS;
 const token = process.env.TOKEN_INTERLEGIS;
 const app = (0, express_1.default)();
@@ -72,6 +75,10 @@ app.post("/api/sessao/votacao", SaplVote_1.votesapl);
 app.get("/api/sessao/zerar", ZeroVote_1.ZeroVote);
 //Get materias legislativas 
 app.get("/api/materia/materialegislativa/", Materias_1.GetMaterias);
+// Public Routes
+app.get("/api/parlamentaries/list", ParlametariesList_1.ParlamentariesList);
+app.get("/api/parlamentaries/board", BoardOfDirect_1.BoardOfDirect);
+app.get("/api/materias/autoria/:id", Matters_1.MattersLegis);
 // delete all votes database testing 
 app.delete("/api/delete/massa/:id", async (req, res) => {
     const { id } = req.params;
