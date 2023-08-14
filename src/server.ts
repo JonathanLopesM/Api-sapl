@@ -37,14 +37,19 @@ const url = process.env.URL_INTERLEGIS
 const token = process.env.TOKEN_INTERLEGIS
 
 const app = express();
-
-app.use(cors());
+const corsOptions = {
+  origin: '*', // Permitir todas as origens
+  methods: '*', // Permitir todos os métodos
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const server = http.createServer(app)
 export const io = new Server(server, {
   cors: {
-    origin: "*"
+  origin: '*', // Permitir todas as origens
+  methods: '*', // Permitir todos os métodos
+
   }
 })
 
@@ -91,7 +96,7 @@ app.get("/api/materia/materialegislativa/", GetMaterias)
 
 app.get("/api/parlamentaries/list", ParlamentariesList)
 app.get("/api/parlamentaries/board", BoardOfDirect)
-app.get("/api/materias/autoria/:id", MattersLegis)
+app.get("/api/materias/autoria/:page", MattersLegis)
 
 
 // delete all votes database testing 

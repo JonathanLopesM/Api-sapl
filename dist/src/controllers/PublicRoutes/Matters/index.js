@@ -7,9 +7,11 @@ exports.MattersLegis = void 0;
 const axios_1 = __importDefault(require("axios"));
 const url = process.env.URL_INTERLEGIS;
 const MattersLegis = async (req, res) => {
-    const { id } = req.params;
-    const materias = await axios_1.default.get(`${url}/api/materia/materialegislativa/?o=-data_apresentacao&page=${id}`);
+    const { page } = req.params;
+    console.log(page, "page");
+    const materias = await axios_1.default.get(`${url}/api/materia/materialegislativa/?o=-data_apresentacao&page=${page}`);
     let resu = materias.data.results;
+    console.log(resu, "resultado");
     let response = [];
     for (let matter of materias.data.results) {
         let autor = await axios_1.default.get(`${url}/api/materia/autoria/?materia=${matter.id}`);
@@ -28,6 +30,7 @@ const MattersLegis = async (req, res) => {
         response.push({
             id: matter.id,
             __str__: matter.__str__,
+            data_apresentacao: matter.data_apresentacao,
             numero: matter.numero,
             ano: matter.ano,
             ementa: matter.ementa,

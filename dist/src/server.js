@@ -37,12 +37,17 @@ const Matters_1 = require("./controllers/PublicRoutes/Matters");
 const url = process.env.URL_INTERLEGIS;
 const token = process.env.TOKEN_INTERLEGIS;
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
+const corsOptions = {
+    origin: '*',
+    methods: '*', // Permitir todos os métodos
+};
+app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 const server = http_1.default.createServer(app);
 exports.io = new socket_io_1.Server(server, {
     cors: {
-        origin: "*"
+        origin: '*',
+        methods: '*', // Permitir todos os métodos
     }
 });
 app.get("/", (req, res) => {
@@ -78,7 +83,7 @@ app.get("/api/materia/materialegislativa/", Materias_1.GetMaterias);
 // Public Routes
 app.get("/api/parlamentaries/list", ParlametariesList_1.ParlamentariesList);
 app.get("/api/parlamentaries/board", BoardOfDirect_1.BoardOfDirect);
-app.get("/api/materias/autoria/:id", Matters_1.MattersLegis);
+app.get("/api/materias/autoria/:page", Matters_1.MattersLegis);
 // delete all votes database testing 
 app.delete("/api/delete/massa/:id", async (req, res) => {
     const { id } = req.params;
