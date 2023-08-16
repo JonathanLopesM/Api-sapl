@@ -34,6 +34,7 @@ const ZeroVote_1 = require("./controllers/Panel/VoteParlamentaries/ZeroVote");
 const ParlametariesList_1 = require("./controllers/PublicRoutes/ParlametariesList");
 const BoardOfDirect_1 = require("./controllers/PublicRoutes/BoardOfDirect");
 const Matters_1 = require("./controllers/PublicRoutes/Matters");
+const AdmLogin_1 = require("./controllers/AdmLogin");
 const url = process.env.URL_INTERLEGIS;
 const token = process.env.TOKEN_INTERLEGIS;
 const app = (0, express_1.default)();
@@ -55,6 +56,8 @@ app.get("/", (req, res) => {
 });
 //LOGIN users
 app.post("/auth/login", Login_1.Login);
+//Login Admin
+app.post("/auth/login/admin", AdmLogin_1.AdmLogin);
 //Create User
 app.post("/auth/users", CreateAuthUser_1.CreateAuthUser);
 app.get("/auth/users", GetUsers_1.GetUsers);

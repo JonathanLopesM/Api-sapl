@@ -33,6 +33,7 @@ import { ZeroVote } from "./controllers/Panel/VoteParlamentaries/ZeroVote";
 import { ParlamentariesList } from "./controllers/PublicRoutes/ParlametariesList";
 import { BoardOfDirect } from "./controllers/PublicRoutes/BoardOfDirect";
 import { MattersLegis } from "./controllers/PublicRoutes/Matters";
+import { AdmLogin } from "./controllers/AdmLogin";
 const url = process.env.URL_INTERLEGIS
 const token = process.env.TOKEN_INTERLEGIS
 
@@ -58,6 +59,8 @@ app.get("/", (req: Request, res: Response) => {
 })
 //LOGIN users
 app.post("/auth/login", Login)
+//Login Admin
+app.post("/auth/login/admin", AdmLogin)
 
 //Create User
 app.post("/auth/users", CreateAuthUser)

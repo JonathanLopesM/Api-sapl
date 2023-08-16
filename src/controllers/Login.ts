@@ -5,6 +5,7 @@ import jwt, { Secret } from "jsonwebtoken"
 import User from "../models/UserModel";
 import UserParlam from "../models/UserParlamModel";
 import VoteModel from "../models/VoteModel";
+import axios from "axios";
 
 interface ReqBody {
   username: string;
@@ -22,27 +23,12 @@ export const Login = async (req:Request, res:Response) => {
 
   let user = {} as any
   var response = {} as any
-
-  user = await User.findOne({ username})
-  console.log(user , 'user return findOne')
-  if(user) {
-    response = {
-      _id: user._id,
-      username: user.username,
-      active: user.active,
-      nivel: user.nivel
-    }
-  }
-
   
-  if(!user){
       user = await UserParlam.findOne({username: username})
-      console.log(user, 'user parl')
       if(!user){
-        return res.status(404).json({ message: 'Usuário não encontrado, verifique Email/Senha'})
+        return res.status(404).json({ message: 'Usuário não encontrado, verifique Username/Senha'})
       }
       let votante = await VoteModel.findOne({ id: user.id})
-
 
       if(!votante){
           votante = new VoteModel({
@@ -76,7 +62,7 @@ export const Login = async (req:Request, res:Response) => {
         }
       
       votante.save()
-  }
+  
 
 
   const checkPassword = await bcrypt.compare(password, user.password)
