@@ -35,6 +35,7 @@ const ParlametariesList_1 = require("./controllers/PublicRoutes/ParlametariesLis
 const BoardOfDirect_1 = require("./controllers/PublicRoutes/BoardOfDirect");
 const Matters_1 = require("./controllers/PublicRoutes/Matters");
 const AdmLogin_1 = require("./controllers/AdmLogin");
+const Details_1 = require("./controllers/PublicRoutes/ParlametariesList/Details");
 const url = process.env.URL_INTERLEGIS;
 const token = process.env.TOKEN_INTERLEGIS;
 const app = (0, express_1.default)();
@@ -85,6 +86,7 @@ app.get("/api/sessao/zerar", ZeroVote_1.ZeroVote);
 app.get("/api/materia/materialegislativa/", Materias_1.GetMaterias);
 // Public Routes
 app.get("/api/parlamentaries/list", ParlametariesList_1.ParlamentariesList);
+app.get("/api/parlamentaries/details/:id", Details_1.Details);
 app.get("/api/parlamentaries/board", BoardOfDirect_1.BoardOfDirect);
 app.get("/api/materias/autoria/:page", Matters_1.MattersLegis);
 // delete all votes database testing 

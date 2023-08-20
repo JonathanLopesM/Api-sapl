@@ -34,6 +34,7 @@ import { ParlamentariesList } from "./controllers/PublicRoutes/ParlametariesList
 import { BoardOfDirect } from "./controllers/PublicRoutes/BoardOfDirect";
 import { MattersLegis } from "./controllers/PublicRoutes/Matters";
 import { AdmLogin } from "./controllers/AdmLogin";
+import { Details } from "./controllers/PublicRoutes/ParlametariesList/Details";
 const url = process.env.URL_INTERLEGIS
 const token = process.env.TOKEN_INTERLEGIS
 
@@ -98,6 +99,7 @@ app.get("/api/materia/materialegislativa/", GetMaterias)
 // Public Routes
 
 app.get("/api/parlamentaries/list", ParlamentariesList)
+app.get("/api/parlamentaries/details/:id", Details)
 app.get("/api/parlamentaries/board", BoardOfDirect)
 app.get("/api/materias/autoria/:page", MattersLegis)
 
