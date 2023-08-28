@@ -19,14 +19,9 @@ export async function Todos(req, res) {
           })
         })
     })
-    // console.log(completParl.data.results, "dados parl complet")
-    console.log(parl.results,  "Parls")
-    // console.log(autor.data.results, "Autores")
 
   let response = [];
   let responseData = completParl.data.results
-  // console.log(response, "response ")
-  // console.log(completParl.data.results, "data response ")
 
   for(let Res of responseData){
     for(let parlament of parl.results){
@@ -41,7 +36,6 @@ export async function Todos(req, res) {
       }
     }
   }
-  console.log(response, "response ")
   
   res.status(200).json({message: "ok retorno não sei "})
 }

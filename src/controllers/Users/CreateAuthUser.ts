@@ -48,14 +48,12 @@ export const CreateAuthUser = async (req, res) => {
   // check if User exists 
   if(!id){
     const userExists = await User.findOne({username: username})
-
     if(userExists){
       return res.status(422).json({ message: 'Username já vinculado a uma conta!'})
     }
   }
   else {
     const userExists = await UserParlam.findOne({username: username})
-
     if(userExists){
       return res.status(422).json({ message: 'Username já vinculado a uma conta!'})
     }

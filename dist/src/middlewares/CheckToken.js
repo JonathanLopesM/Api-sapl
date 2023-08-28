@@ -13,8 +13,6 @@ async function checkToken(req, res, next) {
     }
     try {
         const secret = process.env.SECRET;
-        // console.log(token)
-        // console.log(secret)
         jsonwebtoken_1.default.verify(token, secret, (err, decoded) => {
             if (err)
                 return res.status(401).send({ error: 'Token invalid' });

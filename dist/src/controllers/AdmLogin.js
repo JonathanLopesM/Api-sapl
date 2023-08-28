@@ -18,7 +18,6 @@ const AdmLogin = async (req, res) => {
     let user = {};
     var response = {};
     user = await UserModel_1.default.findOne({ username });
-    console.log(user, 'user return findOne');
     if (!user) {
         res.status(404).json({ message: "Usuário não encontrado, verifique Username/Senha" });
     }

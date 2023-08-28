@@ -1,11 +1,8 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt"
-import jwt, { Secret } from "jsonwebtoken"
-
-import User from "../models/UserModel";
+import jwt, { Secret } from "jsonwebtoken";
 import UserParlam from "../models/UserParlamModel";
 import VoteModel from "../models/VoteModel";
-import axios from "axios";
 
 interface ReqBody {
   username: string;
@@ -23,13 +20,11 @@ export const Login = async (req:Request, res:Response) => {
 
   let user = {} as any
   var response = {} as any
-  
-      user = await UserParlam.findOne({username: username})
+    user = await UserParlam.findOne({username: username})
       if(!user){
         return res.status(404).json({ message: 'Usuário não encontrado, verifique Username/Senha'})
       }
       let votante = await VoteModel.findOne({ id: user.id})
-
       if(!votante){
           votante = new VoteModel({
             id: user.id,
@@ -39,7 +34,6 @@ export const Login = async (req:Request, res:Response) => {
             presenca: false,
             voto: 'Não Votou'
           })
-          
         }
         if(votante) {
           const {
@@ -60,18 +54,12 @@ export const Login = async (req:Request, res:Response) => {
             }
           }
         }
-      
       votante.save()
-  
-
-
   const checkPassword = await bcrypt.compare(password, user.password)
   if(!checkPassword) {
     return res.status(404).json({ message: 'Senha Inválida' })
   }
-  
   try{
-
     const secret = process.env.SECRET as Secret
     const token = jwt.sign({
       id:user._id,

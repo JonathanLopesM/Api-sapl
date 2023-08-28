@@ -10,7 +10,6 @@ const idtable = process.env.MESA_ATUAL;
 const BoardOfDirect = async (req, res) => {
     const parlamentares = await axios_1.default.get(`${url}/api/parlamentares/parlamentar/?page_size=100`);
     const table = await axios_1.default.get(`${url}/api/parlamentares/composicaomesa/?mesa_diretora=${idtable}`);
-    console.log(table.data.results, "table");
     let response = [];
     for (let parl of parlamentares.data.results) {
         for (let tab of table.data.results) {

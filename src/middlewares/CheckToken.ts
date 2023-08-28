@@ -14,8 +14,6 @@ async function checkToken (req, res, next) {
   try {
 
     const secret = process.env.SECRET as Secret
-    // console.log(token)
-    // console.log(secret)
 
     jwt.verify(token, secret, (err, decoded) => {
       if(err) return res.status(401).send({ error: 'Token invalid'});

@@ -3,11 +3,9 @@ const url = process.env.URL_INTERLEGIS
 
 export const MattersLegis = async (req, res) => {
   const { page } = req.params;
-  console.log(page, "page")
   const materias = await axios.get(`${url}/api/materia/materialegislativa/?o=-data_apresentacao&page=${page}`)
-
   let resu= materias.data.results
-  console.log(resu, "resultado")
+
   let response = [];
 
   for(let matter of materias.data.results){

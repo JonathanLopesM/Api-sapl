@@ -5,8 +5,7 @@ import Painel from "../../models/PanelModel"
 export const DataPanel = async (req:Request, res:Response) => {
   const { estado, tela, materia } = req.body as any
   const tokenInterlegis = process.env.TOKEN_INTERLEGIS
-  const statePainel = await axios.get("https://sapl.valenca.rj.leg.br/api/painel/painel")
-  console.log(statePainel, 'painel')
+
   const state = new Painel({
     estado: estado, 
     tela:tela

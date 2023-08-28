@@ -9,7 +9,6 @@ const votesapl = async (req, res) => {
     const { materia, ordem, tipo_resultado_votacao, observacao, numero_votos_sim, numero_votos_nao, numero_abstencoes, votes } = req.body;
     const url = process.env.URL_INTERLEGIS;
     const token = process.env.TOKEN_INTERLEGIS;
-    console.log(materia, ordem, tipo_resultado_votacao, observacao, numero_votos_sim, numero_votos_nao, numero_abstencoes, votes, "dados vindos do front");
     //Registro de votacao, irá retornar o id de votacao 
     let resultadoString;
     if (!tipo_resultado_votacao) {
@@ -59,9 +58,7 @@ const votesapl = async (req, res) => {
                 'Authorization': `Token ` + token
             }
         }).then(async (respoSapl) => {
-            console.log(respoSapl, "repon dentro do bagui");
             //votacao de cada parlamentar 
-            //{{ _.baseSapl }}/api/sessao/votoparlamentar/
             for (let vote of votes) {
                 await axios_1.default.post(`${url}/api/sessao/votoparlamentar/`, {
                     "voto": vote.voto,

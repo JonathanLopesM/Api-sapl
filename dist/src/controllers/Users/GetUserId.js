@@ -8,7 +8,6 @@ const VoteModel_1 = __importDefault(require("../../models/VoteModel"));
 const GetUserId = async (req, res) => {
     const { id } = req.params;
     const response = await VoteModel_1.default.findOne({ id: id });
-    console.log(response);
     res.status(200).json(response);
 };
 exports.GetUserId = GetUserId;

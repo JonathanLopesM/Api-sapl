@@ -4,7 +4,6 @@ import UserParlamModel from "../../models/UserParlamModel";
 
 export const UpdatedUser = async (req, res) => {
   const { id } = req.params;
-  console.log(id, "id que chega")
   const { username, password, confirmpassword, active, nivel } = req.body;
   let user;
   user = await UserParlamModel.findOne({_id:id})
@@ -27,8 +26,7 @@ export const UpdatedUser = async (req, res) => {
     user.nivel = nivel
   }
   await user.save()
-  console.log(user, "user model")
-  console.log(username, password, confirmpassword, active, nivel, "parametros")
+  
   res.status(203).json({message: "user updated success!"})
 
 }

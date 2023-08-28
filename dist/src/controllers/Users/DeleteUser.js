@@ -8,14 +8,11 @@ const UserModel_1 = __importDefault(require("../../models/UserModel"));
 const UserParlamModel_1 = __importDefault(require("../../models/UserParlamModel"));
 const DeleteUser = async (req, res) => {
     const { id } = req.params;
-    console.log(id, "id no params");
     try {
         let response;
         response = await UserModel_1.default.findByIdAndDelete(id);
-        console.log(response, "se encotntrou no userModel");
         if (!response) {
             response = await UserParlamModel_1.default.findByIdAndDelete(id);
-            console.log(response, "se encotntrou no UserParl");
         }
         res.status(204).json({ message: "user delete success ", response });
     }
