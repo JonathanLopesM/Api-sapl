@@ -35,6 +35,8 @@ import { BoardOfDirect } from "./controllers/PublicRoutes/BoardOfDirect";
 import { MattersLegis } from "./controllers/PublicRoutes/Matters";
 import { AdmLogin } from "./controllers/AdmLogin";
 import { Details } from "./controllers/PublicRoutes/ParlametariesList/Details";
+import { Todos } from "./controllers/PublicRoutes/ParlametariesList/Todos";
+import { ZeroPresence } from "./controllers/Panel/VoteParlamentaries/ZeroPresence";
 const url = process.env.URL_INTERLEGIS
 const token = process.env.TOKEN_INTERLEGIS
 
@@ -87,11 +89,14 @@ app.post("/speech/timer", SpeechParl)
 app.get("/speech/timer", GetSpeech )
 app.patch("/speech/timer/:idparams", PatchSpeech)
 
+// ordem do dia Sessoes
 app.get("/api/sessao/sessaoplenaria/:id", GetSessoes)
 
 //save vote on database and reload or cancel vote parl
 app.post("/api/sessao/votacao", votesapl)
 app.get("/api/sessao/zerar", ZeroVote)
+// save data vote 
+app.get("/api/sessao/presencezero", ZeroPresence)
 
 //Get materias legislativas 
 app.get("/api/materia/materialegislativa/", GetMaterias)
@@ -99,6 +104,8 @@ app.get("/api/materia/materialegislativa/", GetMaterias)
 // Public Routes
 
 app.get("/api/parlamentaries/list", ParlamentariesList)
+//Teste PArl List
+app.get("/api/parlamentaries/listodos", Todos)
 app.get("/api/parlamentaries/details/:id", Details)
 app.get("/api/parlamentaries/board", BoardOfDirect)
 app.get("/api/materias/autoria/:page", MattersLegis)

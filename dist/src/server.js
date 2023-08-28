@@ -36,6 +36,8 @@ const BoardOfDirect_1 = require("./controllers/PublicRoutes/BoardOfDirect");
 const Matters_1 = require("./controllers/PublicRoutes/Matters");
 const AdmLogin_1 = require("./controllers/AdmLogin");
 const Details_1 = require("./controllers/PublicRoutes/ParlametariesList/Details");
+const Todos_1 = require("./controllers/PublicRoutes/ParlametariesList/Todos");
+const ZeroPresence_1 = require("./controllers/Panel/VoteParlamentaries/ZeroPresence");
 const url = process.env.URL_INTERLEGIS;
 const token = process.env.TOKEN_INTERLEGIS;
 const app = (0, express_1.default)();
@@ -78,14 +80,19 @@ app.patch("/parl/presence/:user", Presence_1.Presence);
 app.post("/speech/timer", SpeechParl_1.SpeechParl);
 app.get("/speech/timer", GetSpeech_1.GetSpeech);
 app.patch("/speech/timer/:idparams", PatchSpeech_1.PatchSpeech);
+// ordem do dia Sessoes
 app.get("/api/sessao/sessaoplenaria/:id", GetSessoes_1.GetSessoes);
 //save vote on database and reload or cancel vote parl
 app.post("/api/sessao/votacao", SaplVote_1.votesapl);
 app.get("/api/sessao/zerar", ZeroVote_1.ZeroVote);
+// save data vote 
+app.get("/api/sessao/presencezero", ZeroPresence_1.ZeroPresence);
 //Get materias legislativas 
 app.get("/api/materia/materialegislativa/", Materias_1.GetMaterias);
 // Public Routes
 app.get("/api/parlamentaries/list", ParlametariesList_1.ParlamentariesList);
+//Teste PArl List
+app.get("/api/parlamentaries/listodos", Todos_1.Todos);
 app.get("/api/parlamentaries/details/:id", Details_1.Details);
 app.get("/api/parlamentaries/board", BoardOfDirect_1.BoardOfDirect);
 app.get("/api/materias/autoria/:page", Matters_1.MattersLegis);
