@@ -9,10 +9,10 @@ export const GetSessoes = async (req, res) => {
   let arrayMatter = responseMatter.data.results;
 
   for(let matter of arrayMatter){
+
     await axios.get(`${url}/api/materia/materialegislativa/${matter.materia}`)
     .then(respo => {
-      // console.log(respo, "respo")
-      return mattersDefinitive.push({
+      mattersDefinitive.push({
         id: respo.data.id,
         __str__: respo.data.__str__,
         metadata: respo.data.metadata,
