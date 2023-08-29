@@ -3,13 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.io = void 0;
 require('dotenv').config();
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const http_1 = __importDefault(require("http"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const socket_io_1 = require("socket.io");
 const PORT = 3333;
 const CreateAuthUser_1 = require("./controllers/Users/CreateAuthUser");
 const Login_1 = require("./controllers/Login");
@@ -42,18 +40,18 @@ const url = process.env.URL_INTERLEGIS;
 const token = process.env.TOKEN_INTERLEGIS;
 const app = (0, express_1.default)();
 const corsOptions = {
-    origin: '*',
+    origin: ["http://127.0.0.1:8080", "https://votacao.novace.com.br"],
     methods: '*', // Permitir todos os métodos
 };
 app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 const server = http_1.default.createServer(app);
-exports.io = new socket_io_1.Server(server, {
-    cors: {
-        origin: '*',
-        methods: '*', // Permitir todos os métodos
-    }
-});
+// export const io = new Server(server, {
+//   cors: {
+//   origin: '*', // Permitir todas as origens
+//   methods: '*', // Permitir todos os métodos
+//   }
+// })
 app.get("/", (req, res) => {
     return res.json({ message: "welcome api Novace 1.0.3" });
 });

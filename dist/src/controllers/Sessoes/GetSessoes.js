@@ -8,9 +8,10 @@ const axios_1 = __importDefault(require("axios"));
 const GetSessoes = async (req, res) => {
     const { id } = req.params;
     const url = process.env.URL_INTERLEGIS;
-    const responseMatter = await axios_1.default.get(`${url}/api/sessao/ordemdia/?o=-data_ordem&&sessao_plenaria=${id}`);
+    const responseMatter = await axios_1.default.get(`${url}/api/sessao/ordemdia/?o=-data_ordem&&sessao_plenaria=${id}&&page_size=30`);
     let mattersDefinitive = [];
     let arrayMatter = responseMatter.data.results;
+    console.log(arrayMatter, "array Matter");
     for (let matter of arrayMatter) {
         await axios_1.default.get(`${url}/api/materia/materialegislativa/${matter.materia}`)
             .then(respo => {

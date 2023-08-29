@@ -42,20 +42,20 @@ const token = process.env.TOKEN_INTERLEGIS
 
 const app = express();
 const corsOptions = {
-  origin: '*', // Permitir todas as origens
+  origin: ["http://127.0.0.1:8080", "https://votacao.novace.com.br"], // Permitir todas as origens
   methods: '*', // Permitir todos os métodos
 };
 app.use(cors(corsOptions));
 app.use(express.json());
 
 const server = http.createServer(app)
-export const io = new Server(server, {
-  cors: {
-  origin: '*', // Permitir todas as origens
-  methods: '*', // Permitir todos os métodos
+// export const io = new Server(server, {
+//   cors: {
+//   origin: '*', // Permitir todas as origens
+//   methods: '*', // Permitir todos os métodos
 
-  }
-})
+//   }
+// })
 
 app.get("/", (req: Request, res: Response) => {
   return res.json({ message: "welcome api Novace 1.0.3"});
