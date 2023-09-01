@@ -21,34 +21,37 @@ const votesapl = async (req, res) => {
         resultadoString = "APROVADO POR MAIORIA SIMPLES";
     }
     if (tipo_resultado_votacao == 3) {
-        resultadoString = "REPROVADA";
+        resultadoString = "APROVADO POR UNANIMIDADE";
     }
     if (tipo_resultado_votacao == 4) {
-        resultadoString = "Matéria lida";
+        resultadoString = "REPROVADA";
     }
     if (tipo_resultado_votacao == 5) {
-        resultadoString = "APROVADA EM 1º DISCUSSÃO";
+        resultadoString = "Matéria lida";
     }
     if (tipo_resultado_votacao == 6) {
-        resultadoString = "APROVADA EM 2º DISCUSSÃO";
+        resultadoString = "APROVADA EM 1º DISCUSSÃO";
     }
     if (tipo_resultado_votacao == 7) {
-        resultadoString = "APROVADA EM REGIME DE URGÊNCIA ESPECIAL";
+        resultadoString = "APROVADA EM 2º DISCUSSÃO";
     }
     if (tipo_resultado_votacao == 8) {
-        resultadoString = "APROVADA EM DISCUSSÃO ÚNICA";
+        resultadoString = "APROVADA EM REGIME DE URGÊNCIA ESPECIAL";
     }
     if (tipo_resultado_votacao == 9) {
-        resultadoString = "APROVADO POR 2/3";
+        resultadoString = "APROVADA EM DISCUSSÃO ÚNICA";
     }
     if (tipo_resultado_votacao == 10) {
+        resultadoString = "APROVADO POR 2/3";
+    }
+    if (tipo_resultado_votacao == 11) {
         resultadoString = "PEDIDO DE VISTA";
     }
     try {
         await axios_1.default.post(`${url}/api/sessao/registrovotacao/`, {
             "numero_votos_sim": numero_votos_sim,
             "numero_votos_nao": numero_votos_nao,
-            "numero_abstencoes": 12,
+            "numero_abstencoes": numero_abstencoes,
             "observacao": observacao,
             "tipo_resultado_votacao": tipo_resultado_votacao,
             "materia": materia,
