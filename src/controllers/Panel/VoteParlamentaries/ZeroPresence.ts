@@ -6,7 +6,7 @@ export const ZeroPresence = async (req, res) => {
 
   await VoteModel.updateMany({
     presenca: false,
-    voto: "Não votou"
+    voto: "Não Votou"
   })
   const statePanel = await PanelModel.findOne();
 

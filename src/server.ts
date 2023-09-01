@@ -37,6 +37,7 @@ import { AdmLogin } from "./controllers/AdmLogin";
 import { Details } from "./controllers/PublicRoutes/ParlametariesList/Details";
 import { Todos } from "./controllers/PublicRoutes/ParlametariesList/Todos";
 import { ZeroPresence } from "./controllers/Panel/VoteParlamentaries/ZeroPresence";
+import { RegisterResultVote } from "./controllers/RegisterResultVote";
 const url = process.env.URL_INTERLEGIS
 const token = process.env.TOKEN_INTERLEGIS
 
@@ -83,6 +84,8 @@ app.get("/parl/vote", ReturnVotes)
 app.get("/parl/vote/:id", GetUserId)
 app.patch("/parl/vote/:user", Voting)
 app.patch("/parl/presence/:user", Presence)
+//Register Vote 
+app.post("/api/sessao/registrovotacao/", RegisterResultVote)
 
 //timers speech
 app.post("/speech/timer", SpeechParl)

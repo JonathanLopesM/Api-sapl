@@ -11,7 +11,10 @@ const ReturnVotes = async (req, res) => {
     const statePanel = await PanelModel_1.default.findOne();
     const { _id, tela, estado, materia } = statePanel;
     const NVote = responseVote.filter(parl => {
-        return parl.voto == 'Não Votou';
+        if (parl.presenca === true) {
+            return parl.voto == 'Não Votou';
+        }
+        return;
     });
     const Yes = responseVote.filter(parl => {
         return parl.voto == 'Sim';
@@ -30,6 +33,7 @@ const ReturnVotes = async (req, res) => {
         NVote: NVote.length,
         Yes: Yes.length,
         Not: Not.length,
+        abstain: abstain.length,
         Presence: Presence.length,
         totalVotes,
         idPanel: _id,

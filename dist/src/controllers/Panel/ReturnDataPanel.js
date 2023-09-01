@@ -38,17 +38,23 @@ const ReturnPainelDados = async (req, res) => {
             matter = respo.data;
         }
         if (registro) {
-            const resultResp = await axios_1.default.get(`${url}/api/sessao/ordemdia/?materia=6041`);
+            const resultResp = await axios_1.default.get(`${url}/api/sessao/registrovotacao/?materia=${materia}`);
             result = resultResp.data.results[0];
         }
         const NVote = stateVote.filter(parl => {
-            return parl.voto == 'Não Votou';
+            if (parl.presenca === true) {
+                return parl.voto == 'Não Votou';
+            }
+            return;
         });
         const Yes = stateVote.filter(parl => {
             return parl.voto == 'Sim';
         });
         const Not = stateVote.filter(parl => {
             return parl.voto == 'Não';
+        });
+        const Abstain = stateVote.filter(parl => {
+            return parl.voto == 'Abster';
         });
         const Presence = stateVote.filter(parl => {
             return parl.presenca == true;
@@ -58,6 +64,7 @@ const ReturnPainelDados = async (req, res) => {
             NVote: NVote.length,
             Yes: Yes.length,
             Not: Not.length,
+            Abstain: Abstain.length,
             Presence: Presence.length,
             totalVotes
         };
@@ -82,13 +89,19 @@ const ReturnPainelDados = async (req, res) => {
             matter = respo.data;
         }
         const NVote = responseVote.filter(parl => {
-            return parl.voto == 'Não Votou';
+            if (parl.presenca === true) {
+                return parl.voto == 'Não Votou';
+            }
+            return;
         });
         const Yes = responseVote.filter(parl => {
             return parl.voto == 'Sim';
         });
         const Not = responseVote.filter(parl => {
             return parl.voto == 'Não';
+        });
+        const Abstain = responseVote.filter(parl => {
+            return parl.voto == 'Abster';
         });
         const Presence = responseVote.filter(parl => {
             return parl.presenca == true;
@@ -98,6 +111,7 @@ const ReturnPainelDados = async (req, res) => {
             NVote: NVote.length,
             Yes: Yes.length,
             Not: Not.length,
+            Abstain: Abstain.length,
             Presence: Presence.length,
             totalVotes
         };

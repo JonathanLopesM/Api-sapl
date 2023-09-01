@@ -9,7 +9,7 @@ const VoteModel_1 = __importDefault(require("../../../models/VoteModel"));
 const ZeroPresence = async (req, res) => {
     await VoteModel_1.default.updateMany({
         presenca: false,
-        voto: "Não votou"
+        voto: "Não Votou"
     });
     const statePanel = await PanelModel_1.default.findOne();
     if (statePanel.materia) {

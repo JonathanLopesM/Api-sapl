@@ -36,6 +36,7 @@ const AdmLogin_1 = require("./controllers/AdmLogin");
 const Details_1 = require("./controllers/PublicRoutes/ParlametariesList/Details");
 const Todos_1 = require("./controllers/PublicRoutes/ParlametariesList/Todos");
 const ZeroPresence_1 = require("./controllers/Panel/VoteParlamentaries/ZeroPresence");
+const RegisterResultVote_1 = require("./controllers/RegisterResultVote");
 const url = process.env.URL_INTERLEGIS;
 const token = process.env.TOKEN_INTERLEGIS;
 const app = (0, express_1.default)();
@@ -74,6 +75,8 @@ app.get("/parl/vote", ReturnVotes_1.ReturnVotes);
 app.get("/parl/vote/:id", GetUserId_1.GetUserId);
 app.patch("/parl/vote/:user", Voting_1.Voting);
 app.patch("/parl/presence/:user", Presence_1.Presence);
+//Register Vote 
+app.post("/api/sessao/registrovotacao/", RegisterResultVote_1.RegisterResultVote);
 //timers speech
 app.post("/speech/timer", SpeechParl_1.SpeechParl);
 app.get("/speech/timer", GetSpeech_1.GetSpeech);

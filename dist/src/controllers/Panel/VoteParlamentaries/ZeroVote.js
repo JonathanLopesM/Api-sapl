@@ -8,7 +8,7 @@ const PanelModel_1 = __importDefault(require("../../../models/PanelModel"));
 const VoteModel_1 = __importDefault(require("../../../models/VoteModel"));
 const ZeroVote = async (req, res) => {
     await VoteModel_1.default.updateMany({
-        voto: "Não votou",
+        voto: "Não Votou",
     });
     const statePanel = await PanelModel_1.default.findOne();
     // consnt { _id, tela, estado, materia, message, registro} = statePanel;

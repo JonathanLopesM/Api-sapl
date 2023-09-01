@@ -5,7 +5,7 @@ import VoteModel from "../../../models/VoteModel";
 export const ZeroVote = async (req, res) => {
 
   await VoteModel.updateMany({
-    voto: "Não votou",
+    voto: "Não Votou",
     
   })
   const statePanel = await PanelModel.findOne();

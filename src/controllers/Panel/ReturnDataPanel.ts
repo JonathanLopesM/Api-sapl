@@ -32,23 +32,30 @@ export const ReturnPainelDados = async (req:Request, res:Response) => {
           const stateVote = await VoteModel.find()
           let result;
           let matter;
+          
           if(materia){
             const respo = await axios.get(`${url}/api/materia/materialegislativa/${materia}`)
             matter = respo.data
           }
           if(registro){
-            const resultResp = await axios.get(`${url}/api/sessao/ordemdia/?materia=6041`)
+            const resultResp = await axios.get(`${url}/api/sessao/registrovotacao/?materia=${materia}`)
             result = resultResp.data.results[0]
           }
           
           const NVote = stateVote.filter(parl => {
-            return parl.voto == 'Não Votou'
+            if(parl.presenca === true){
+              return parl.voto == 'Não Votou'
+            }
+            return
           })
           const Yes = stateVote.filter(parl => {
             return parl.voto == 'Sim'
           })
           const Not = stateVote.filter(parl => {
             return parl.voto == 'Não'
+          })
+          const Abstain = stateVote.filter(parl => {
+            return parl.voto == 'Abster'
           })
           const Presence = stateVote.filter(parl => {
             return parl.presenca == true
@@ -58,6 +65,7 @@ export const ReturnPainelDados = async (req:Request, res:Response) => {
             NVote: NVote.length,
             Yes: Yes.length,
             Not: Not.length,
+            Abstain: Abstain.length,
             Presence: Presence.length,
             totalVotes
           }
@@ -78,19 +86,26 @@ export const ReturnPainelDados = async (req:Request, res:Response) => {
         if(tela === 2){
           const responseVote = await VoteModel.find()
           let matter;
+          
           if(materia){
             const respo = await axios.get(`${url}/api/materia/materialegislativa/${materia}`)
             matter = respo.data
           }
 
           const NVote = responseVote.filter(parl => {
-            return parl.voto == 'Não Votou'
+            if(parl.presenca === true){
+              return parl.voto == 'Não Votou'
+            }
+            return
           })
           const Yes = responseVote.filter(parl => {
             return parl.voto == 'Sim'
           })
           const Not = responseVote.filter(parl => {
             return parl.voto == 'Não'
+          })
+          const Abstain = responseVote.filter(parl => {
+            return parl.voto == 'Abster'
           })
           const Presence = responseVote.filter(parl => {
             return parl.presenca == true
@@ -101,6 +116,7 @@ export const ReturnPainelDados = async (req:Request, res:Response) => {
             NVote: NVote.length,
             Yes: Yes.length,
             Not: Not.length,
+            Abstain: Abstain.length,
             Presence: Presence.length,
             totalVotes
           }
