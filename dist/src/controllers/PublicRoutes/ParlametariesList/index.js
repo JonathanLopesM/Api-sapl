@@ -13,7 +13,6 @@ const ParlamentariesList = async (req, res) => {
             return parl;
         }
     });
-    console.log(parlamentares.data, "parlamentares Search");
     let response = [];
     for (let parl of parlamentaresFilter) {
         response.push({

@@ -7,7 +7,6 @@ export const GetSessoes = async (req, res) => {
   const responseMatter = await axios.get(`${url}/api/sessao/ordemdia/?o=-data_ordem&&sessao_plenaria=${id}&&page_size=30`)
   let mattersDefinitive = [];
   let arrayMatter = responseMatter.data.results;
-console.log(arrayMatter, "array Matter")
   for(let matter of arrayMatter){
 
     await axios.get(`${url}/api/materia/materialegislativa/${matter.materia}`)

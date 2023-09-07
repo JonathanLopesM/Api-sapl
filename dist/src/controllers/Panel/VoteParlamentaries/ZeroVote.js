@@ -12,9 +12,9 @@ const ZeroVote = async (req, res) => {
     });
     const statePanel = await PanelModel_1.default.findOne();
     // consnt { _id, tela, estado, materia, message, registro} = statePanel;
-    if (statePanel.materia) {
-        statePanel.materia = undefined;
-    }
+    // if(statePanel.materia){
+    //   statePanel.materia= undefined
+    // }
     if (statePanel.registro) {
         statePanel.registro = false;
     }
