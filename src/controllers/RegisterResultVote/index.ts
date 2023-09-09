@@ -36,7 +36,7 @@ export const RegisterResultVote = async (req, res) => {
    matter,
    {
     headers: {
-      'Authorization': `Token ${token}`
+      'Authorization': `Token${token}`
     }
   })
 
@@ -60,7 +60,7 @@ export const RegisterResultVote = async (req, res) => {
           data,
           {
             headers: {
-              'Authorization': `Token ${token}`
+              'Authorization': `Token${token}`
             }
           })
           // console.log(respo.data, "respo do voto de cada")
