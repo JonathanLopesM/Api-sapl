@@ -23,7 +23,7 @@ const RegisterResultVote = async (req, res) => {
     };
     const response = await axios_1.default.post(`${url}/api/sessao/registrovotacao/`, matter, {
         headers: {
-            'Authorization': `Token${token}`
+            'Authorization': `Token ${token}`
         }
     });
     // 
@@ -43,7 +43,7 @@ const RegisterResultVote = async (req, res) => {
             // console.log(data, "data teste")
             respo = await axios_1.default.post(`${url}/api/sessao/votoparlamentar/`, data, {
                 headers: {
-                    'Authorization': `Token${token}`
+                    'Authorization': `Token ${token}`
                 }
             });
             // console.log(respo.data, "respo do voto de cada")

@@ -124,7 +124,7 @@ app.delete("/api/delete/massa/:id",async (req, res)=> {
     for(let par of Pars) {
       await axios.delete(`${url}/api/sessao/votoparlamentar/${par.id}`,{
         headers: {
-          'Authorization': `Token${token}`
+          'Authorization': `Token `+ token
         }
       })
     }

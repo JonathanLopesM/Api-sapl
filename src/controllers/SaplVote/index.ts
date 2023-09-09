@@ -62,7 +62,7 @@ export const votesapl = async (req, res) => {
             },
             {
               headers: {
-                'Authorization': `Token${token}`
+                'Authorization': `Token `+ token
               }
             }).then(async (respoSapl)=>{
                 //votacao de cada parlamentar 
@@ -74,7 +74,7 @@ export const votesapl = async (req, res) => {
                     "ordem": ordem,
                   }, {
                     headers: {
-                      'Authorization': `Token${token}`
+                      'Authorization': `Token `+ token
                     }
                   }).then(async (res) => {
                     await axios.patch(`${url}/api/sessao/ordemdia/${ordem}/`,{
@@ -82,7 +82,7 @@ export const votesapl = async (req, res) => {
                       observacao: observacao
                     }, {
                       headers: {
-                        'Authorization': `Token${token}`
+                        'Authorization': `Token `+ token
                       }
                     })
                   })
