@@ -54,7 +54,7 @@ const server = http_1.default.createServer(app);
 //   }
 // })
 app.get("/", (req, res) => {
-    return res.json({ message: "welcome api Novace 1.0.3" });
+    return res.json({ message: "welcome api Novace 1.0.4" });
 });
 //LOGIN users
 app.post("/auth/login", Login_1.Login);
