@@ -41,7 +41,7 @@ const url = process.env.URL_INTERLEGIS;
 const token = process.env.TOKEN_INTERLEGIS;
 const app = (0, express_1.default)();
 const corsOptions = {
-    origin: ["http://127.0.0.1:8080", "https://votacao.novace.com.br"],
+    origin: ['*'],
     methods: '*', // Permitir todos os métodos
 };
 app.use((0, cors_1.default)(corsOptions));

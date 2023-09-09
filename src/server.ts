@@ -43,7 +43,7 @@ const token = process.env.TOKEN_INTERLEGIS
 
 const app = express();
 const corsOptions = {
-  origin: ["http://127.0.0.1:8080", "https://votacao.novace.com.br"], // Permitir todas as origens
+  origin: ['*'], // Permitir todas as origens
   methods: '*', // Permitir todos os métodos
 };
 app.use(cors(corsOptions));
