@@ -88,7 +88,7 @@ const votesapl = async (req, res) => {
     }
     catch (error) {
         console.log(error, "error que ocorreu ");
-        res.status(404).json({ message: "ok valeu" });
+        res.status(404).json(error);
     }
 };
 exports.votesapl = votesapl;
