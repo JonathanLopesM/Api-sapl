@@ -41,10 +41,10 @@ const url = process.env.URL_INTERLEGIS;
 const token = process.env.TOKEN_INTERLEGIS;
 const app = (0, express_1.default)();
 const corsOptions = {
-    origin: ['*'],
+    origin: '*',
     methods: '*', // Permitir todos os métodos
 };
-app.use((0, cors_1.default)(corsOptions));
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 const server = http_1.default.createServer(app);
 // export const io = new Server(server, {

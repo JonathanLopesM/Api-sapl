@@ -43,10 +43,10 @@ const token = process.env.TOKEN_INTERLEGIS
 
 const app = express();
 const corsOptions = {
-  origin: ['*'], // Permitir todas as origens
+  origin: '*', // Permitir todas as origens
   methods: '*', // Permitir todos os métodos
 };
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 const server = http.createServer(app)
