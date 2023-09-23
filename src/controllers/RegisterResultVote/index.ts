@@ -17,59 +17,53 @@ export const RegisterResultVote = async (req, res) => {
     ordem,
     expediente,
     user
-  } = req.body as any
-  
-    let matter = {
-      numero_votos_sim,
-      numero_votos_nao,
-      numero_abstencoes,
-      observacao,
-      ip,
-      tipo_resultado_votacao,
-      materia,
-      ordem,
-      expediente,
-      user
-    }
+  } = req.body as any;
 
-   const response = await axios.post(`${url}/api/sessao/registrovotacao/`,
-   matter,
-   {
-    headers: {
-      'Authorization': `Token ${token}`
-    }
-  })
+  const matter = {
+    numero_votos_sim,
+    numero_votos_nao,
+    numero_abstencoes,
+    observacao,
+    ip,
+    tipo_resultado_votacao,
+    materia,
+    ordem,
+    expediente,
+    user
+  };
 
-  // 
-  //   response.data, "Requisião response do valor ")
-    let respo;
-      if(response.data.id){
-        for(let par of voteResParl){
-
-          let data = {
-            voto: par.voto,
-            ip: "",
-            votacao: response.data.id,
-            parlamentar: par.id,
-            user: 12,
-            ordem: ordem,
-            expediente: null
-          }
-          // console.log(data, "data teste")
-          respo = await axios.post(`${url}/api/sessao/votoparlamentar/`,
-          data,
-          {
-            headers: {
-              'Authorization': `Token ${token}`
-            }
-          })
-          // console.log(respo.data, "respo do voto de cada")
-        }
+  try {
+    const response = await axios.post(`${url}/api/sessao/registrovotacao/`, matter, {
+      headers: {
+        Authorization: `Token ${token}`
       }
+    });
 
-      console.log(respo, "respo ")
-      
-      res.status(200).json({ message: "ok, registro com sucesso"})
+    if (response.data.id) {
+      const votePromises = voteResParl.map(async (par) => {
+        const data = {
+          voto: par.voto,
+          ip: "",
+          votacao: response.data.id,
+          parlamentar: par.id,
+          user: 12,
+          ordem,
+          expediente: null
+        };
 
+        return axios.post(`${url}/api/sessao/votoparlamentar/`, data, {
+          headers: {
+            Authorization: `Token ${token}`
+          }
+        });
+      });
 
-}
+      await Promise.all(votePromises);
+    }
+
+    res.status(200).json({ message: "ok, registro com sucesso" });
+  } catch (error) {
+    console.error(error, "Erro durante o registro");
+    res.status(500).json({ message: "Erro durante o registro" });
+  }
+};

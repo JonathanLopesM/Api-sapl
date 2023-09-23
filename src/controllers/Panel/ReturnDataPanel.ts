@@ -7,9 +7,10 @@ import axios from "axios";
 const url = process.env.URL_INTERLEGIS
 
 export const ReturnPainelDados = async (req:Request, res:Response) => {
-  const { id } = req.params;
   const statePanel = await PanelModel.findOne();
   const { _id, tela, estado, materia, message, registro} = statePanel;
+
+  console.log(statePanel, 'statePanel')
 
       let dados= {};
         

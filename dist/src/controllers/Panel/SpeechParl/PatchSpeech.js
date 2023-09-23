@@ -8,6 +8,7 @@ const DiscourseModel_1 = __importDefault(require("../../../models/DiscourseModel
 const PatchSpeech = async (req, res) => {
     const { idparams } = req.params;
     const { id, name, fotografia, presenca, speechTime, speechTimeInit, speechTimeInitBoolean, partTime, partTimeInit, partTimeInitBoolean, orderQuestionTime, orderQuestionTimeInit, orderQuestionTimeInitBoolean, finalConsiderationsTime, finalConsiderationsTimeInit, finalConsiderationsTimeInitBoolean, soundPlay } = req.body;
+    console.log(idparams, 'id:', id, 'idsREcebidos');
     const response = await DiscourseModel_1.default.findOne({ _id: idparams });
     if (id) {
         response.id = id;

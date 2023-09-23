@@ -38,6 +38,8 @@ import { Details } from "./controllers/PublicRoutes/ParlametariesList/Details";
 import { Todos } from "./controllers/PublicRoutes/ParlametariesList/Todos";
 import { ZeroPresence } from "./controllers/Panel/VoteParlamentaries/ZeroPresence";
 import { RegisterResultVote } from "./controllers/RegisterResultVote";
+import { MattersLegislationFilter } from "./controllers/PublicRoutes/Matters/Matters";
+import { Legislation } from "./controllers/PublicRoutes/Legislation";
 const url = process.env.URL_INTERLEGIS
 const token = process.env.TOKEN_INTERLEGIS
 
@@ -102,11 +104,14 @@ app.get("/api/sessao/zerar", ZeroVote)
 app.get("/api/sessao/presencezero", ZeroPresence)
 
 //Get materias legislativas 
-app.get("/api/materia/materialegislativa/", GetMaterias)
+app.get("/api/materia/", GetMaterias)
+app.get("/api/materia/materialegislativa/", MattersLegislationFilter)
 
 // Public Routes
 
 app.get("/api/parlamentaries/list", ParlamentariesList)
+app.get("/api/norma/legislativa", Legislation)
+
 //Teste PArl List
 app.get("/api/parlamentaries/listodos", Todos)
 app.get("/api/parlamentaries/details/:id", Details)
@@ -115,22 +120,33 @@ app.get("/api/materias/autoria/:page", MattersLegis)
 
 
 // delete all votes database testing 
-app.delete("/api/delete/massa/:id",async (req, res)=> {
-  const {id} = req.params;
-  await axios.get(`${url}/api/sessao/votoparlamentar/?ordem=${id}&page_size=100`)
-  .then( async (res) =>{
-    console.log(res.data.results, "respo do delete")
-    const Pars = res.data.results
-    for(let par of Pars) {
-      await axios.delete(`${url}/api/sessao/votoparlamentar/${par.id}`,{
-        headers: {
-          'Authorization': `Token `+ token
-        }
+app.delete("/api/delete/massa/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // 1. Obtenha os votos parlamentares com base na ordem (id)
+    const response = await axios.get(`${url}/api/sessao/votoparlamentar/?ordem=${id}&page_size=100`);
+    console.log(response.data.results, "respo do delete");
+
+    const Pars = response.data.results;
+
+    // 2. Delete os votos parlamentares em paralelo
+    await Promise.all(
+      Pars.map(par => {
+        return axios.delete(`${url}/api/sessao/votoparlamentar/${par.id}`, {
+          headers: {
+            'Authorization': `Token ${token}`
+          }
+        });
       })
-    }
-  })
-  res.status(200).json({ message: "ok delete "})
-})
+    );
+
+    res.status(200).json({ message: "ok delete " });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Erro no servidor" });
+  }
+});
 
 
 // io.on('connection', (socket: Socket) => {

@@ -10,9 +10,9 @@ const DiscourseModel_1 = __importDefault(require("../../models/DiscourseModel"))
 const axios_1 = __importDefault(require("axios"));
 const url = process.env.URL_INTERLEGIS;
 const ReturnPainelDados = async (req, res) => {
-    const { id } = req.params;
     const statePanel = await PanelModel_1.default.findOne();
     const { _id, tela, estado, materia, message, registro } = statePanel;
+    console.log(statePanel, 'statePanel');
     let dados = {};
     if (tela === 0) {
         //bem vindos a casa do Povo
