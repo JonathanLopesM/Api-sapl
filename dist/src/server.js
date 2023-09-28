@@ -100,7 +100,7 @@ app.get("/api/norma/legislativa", Legislation_1.Legislation);
 app.get("/api/parlamentaries/listodos", Todos_1.Todos);
 app.get("/api/parlamentaries/details/:id", Details_1.Details);
 app.get("/api/parlamentaries/board", BoardOfDirect_1.BoardOfDirect);
-app.get("/api/materias/autoria/:page", Matters_1.MattersLegis);
+app.get("/api/materias/autoria/", Matters_1.MattersLegis);
 // delete all votes database testing 
 app.delete("/api/delete/massa/:id", async (req, res) => {
     try {

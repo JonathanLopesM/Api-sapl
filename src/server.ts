@@ -116,7 +116,7 @@ app.get("/api/norma/legislativa", Legislation)
 app.get("/api/parlamentaries/listodos", Todos)
 app.get("/api/parlamentaries/details/:id", Details)
 app.get("/api/parlamentaries/board", BoardOfDirect)
-app.get("/api/materias/autoria/:page", MattersLegis)
+app.get("/api/materias/autoria/", MattersLegis)
 
 
 // delete all votes database testing 
