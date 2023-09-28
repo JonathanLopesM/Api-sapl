@@ -9,11 +9,13 @@ const url = process.env.URL_INTERLEGIS;
 const MattersLegislationFilter = async (req, res) => {
     try {
         const { page, type, number, subject, year } = req.query;
+        console.log(page, year, type, subject, number, 'console matters ');
         // Construa a URL da API com os parâmetros
-        const apiUrl = `${url}/api/materia/materialegislativa/?o=-data_apresentacao&page=${page}&tipo=${type || ''}&ementa=${subject || ''}&numero=${number || ''}&ano=${year || ''}`;
+        const apiUrl = `${url}/api/materia/materialegislativa/?o=-data_apresentacao&page=${page ? page : ''}&tipo=${type ? type : ''}&ementa=${subject ? subject : ''}&numero=${number || ''}&ano=${year ? year : ''}`;
         // console.log(apiUrl);
         // Faça a chamada à API principal
         const materias = await axios_1.default.get(apiUrl);
+        console.log(materias, 'materias');
         // Extrair dados das matérias
         const results = await Promise.all(materias.data.results.map(async (matter) => {
             const autor = await axios_1.default.get(`${url}/api/materia/autoria/?materia=${matter.id}`);
