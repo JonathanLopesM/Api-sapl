@@ -3,9 +3,10 @@ const url = process.env.URL_INTERLEGIS
 
 export const MattersLegis = async (req, res) => {
   try {
-    const { page } = req.params;
-
-    const materiasResponse = await axios.get(`${url}/api/materia/materialegislativa/?o=-data_apresentacao&page=${page}`);
+    const { page, year, type, ementa, number } = req.query
+                          //?page=${page}&ano=${year ? year : ''}&tipo=${type ? type : ''}&ementa=${ementa ? ementa : ''}&numero=${number}/
+    const getUrl = `${url}/api/materia/materialegislativa/?o=-data_apresentacao&?page=${page}&ano=${year ? year : ''}&tipo=${type ? type : ''}&ementa=${ementa ? ementa : ''}&numero=${number}/`
+    const materiasResponse = await axios.get(getUrl);
     const materias = materiasResponse.data.results;
 
     const response = await Promise.all(

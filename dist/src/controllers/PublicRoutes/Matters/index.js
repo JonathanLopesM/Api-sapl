@@ -8,8 +8,10 @@ const axios_1 = __importDefault(require("axios"));
 const url = process.env.URL_INTERLEGIS;
 const MattersLegis = async (req, res) => {
     try {
-        const { page } = req.params;
-        const materiasResponse = await axios_1.default.get(`${url}/api/materia/materialegislativa/?o=-data_apresentacao&page=${page}`);
+        const { page, year, type, ementa, number } = req.query;
+        //?page=${page}&ano=${year ? year : ''}&tipo=${type ? type : ''}&ementa=${ementa ? ementa : ''}&numero=${number}/
+        const getUrl = `${url}/api/materia/materialegislativa/?o=-data_apresentacao&?page=${page}&ano=${year ? year : ''}&tipo=${type ? type : ''}&ementa=${ementa ? ementa : ''}&numero=${number}/`;
+        const materiasResponse = await axios_1.default.get(getUrl);
         const materias = materiasResponse.data.results;
         const response = await Promise.all(materias.map(async (matter) => {
             const autorResponse = await axios_1.default.get(`${url}/api/materia/autoria/?materia=${matter.id}`);
