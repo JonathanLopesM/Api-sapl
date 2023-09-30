@@ -12,7 +12,6 @@ const url = process.env.URL_INTERLEGIS;
 const ReturnPainelDados = async (req, res) => {
     const statePanel = await PanelModel_1.default.findOne();
     const { _id, tela, estado, materia, message, registro } = statePanel;
-    console.log(statePanel, 'statePanel');
     let dados = {};
     if (tela === 0) {
         //bem vindos a casa do Povo

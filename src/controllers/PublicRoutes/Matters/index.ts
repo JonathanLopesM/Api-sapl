@@ -5,7 +5,7 @@ export const MattersLegis = async (req, res) => {
   try {
     const { page, year, type, ementa, number } = req.query
     
-    const getUrl = `${url}/api/materia/materialegislativa/?page=${page}&ano=${year ? year : ''}&tipo=${type ? type : ''}&ementa=${ementa ? ementa : ''}&numero=${number? number : ''}&page_size=5`
+    const getUrl = `${url}/api/materia/materialegislativa/?page=${page}&ano=${year ? year : ''}&tipo=${type ? type : ''}&ementa=${ementa ? ementa : ''}&numero=${number ? number : ''}`
     const materiasResponse = await axios.get(getUrl);
     const pagination = materiasResponse.data.pagination
     const materias = materiasResponse.data.results;

@@ -107,7 +107,6 @@ app.delete("/api/delete/massa/:id", async (req, res) => {
         const { id } = req.params;
         // 1. Obtenha os votos parlamentares com base na ordem (id)
         const response = await axios_1.default.get(`${url}/api/sessao/votoparlamentar/?ordem=${id}&page_size=100`);
-        console.log(response.data.results, "respo do delete");
         const Pars = response.data.results;
         // 2. Delete os votos parlamentares em paralelo
         await Promise.all(Pars.map(par => {

@@ -19,7 +19,7 @@ const BoardOfDirect = async (req, res) => {
                 const cargo = tab.__str__.split(" - ");
                 return {
                     id: parl.id,
-                    __str__: parl.__str__,
+                    __str__: parl.nome_parlamentar,
                     fotografia: url + parl.fotografia_cropped,
                     mesa_diretora: tab.mesa_diretora,
                     cargo: tab.cargo,

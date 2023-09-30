@@ -16,7 +16,6 @@ async function Todos(req, res) {
         parl = data.data;
         await axios_1.default.get(`${url}/api/parlamentares/legislatura/${data.data.results[0].legislatura}`)
             .then(async (data) => {
-            console.log(data);
             legislation = data.data;
             await axios_1.default.get(`${url}/api/base/autor/`)
                 .then(data => {
