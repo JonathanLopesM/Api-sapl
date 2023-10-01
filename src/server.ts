@@ -40,6 +40,7 @@ import { ZeroPresence } from "./controllers/Panel/VoteParlamentaries/ZeroPresenc
 import { RegisterResultVote } from "./controllers/RegisterResultVote";
 import { MattersLegislationFilter } from "./controllers/PublicRoutes/Matters/Matters";
 import { Legislation } from "./controllers/PublicRoutes/Legislation";
+import { MattersParlAutor } from "./controllers/PublicRoutes/ParlametariesList/MattersParl";
 const url = process.env.URL_INTERLEGIS
 const token = process.env.TOKEN_INTERLEGIS
 
@@ -115,6 +116,7 @@ app.get("/api/norma/legislativa", Legislation)
 //Teste PArl List
 app.get("/api/parlamentaries/listodos", Todos)
 app.get("/api/parlamentaries/details/:id", Details)
+app.get("/api/parlamentaries/matters/", MattersParlAutor)
 app.get("/api/parlamentaries/board", BoardOfDirect)
 app.get("/api/materias/autoria/", MattersLegis)
 

@@ -39,6 +39,7 @@ const ZeroPresence_1 = require("./controllers/Panel/VoteParlamentaries/ZeroPrese
 const RegisterResultVote_1 = require("./controllers/RegisterResultVote");
 const Matters_2 = require("./controllers/PublicRoutes/Matters/Matters");
 const Legislation_1 = require("./controllers/PublicRoutes/Legislation");
+const MattersParl_1 = require("./controllers/PublicRoutes/ParlametariesList/MattersParl");
 const url = process.env.URL_INTERLEGIS;
 const token = process.env.TOKEN_INTERLEGIS;
 const app = (0, express_1.default)();
@@ -99,6 +100,7 @@ app.get("/api/norma/legislativa", Legislation_1.Legislation);
 //Teste PArl List
 app.get("/api/parlamentaries/listodos", Todos_1.Todos);
 app.get("/api/parlamentaries/details/:id", Details_1.Details);
+app.get("/api/parlamentaries/matters/", MattersParl_1.MattersParlAutor);
 app.get("/api/parlamentaries/board", BoardOfDirect_1.BoardOfDirect);
 app.get("/api/materias/autoria/", Matters_1.MattersLegis);
 // delete all votes database testing 
