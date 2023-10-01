@@ -5,25 +5,29 @@ export async function Details(req, res) {
   try {
     const { id } = req.params;
 
-    // Obter informações completas do parlamentar
-    const completParl = await axios.get(`${url}/api/parlamentares/parlamentar/${id}`);
-    const parlamentarData = completParl.data;
+    // Fazer todas as chamadas em paralelo
+    const [completParlResponse, mandatoResponse, autorResponse] = await Promise.all([
+      axios.get(`${url}/api/parlamentares/parlamentar/${id}`),
+      axios.get(`${url}/api/parlamentares/mandato/?parlamentar=${id}`),
+      axios.get(`${url}/api/base/autor/?object_id=${id}`),
+    ]);
 
-    // Obter informações do mandato do parlamentar
-    const mandatoData = await axios.get(`${url}/api/parlamentares/mandato/?parlamentar=${id}`);
-    const mandato = mandatoData.data.results[0];
+    const parlamentarData = completParlResponse.data;
+    const mandato = mandatoResponse.data.results[0];
+    const autor = autorResponse.data.results[0].id;
 
     // Obter informações da legislatura
     const legislaturaData = await axios.get(`${url}/api/parlamentares/legislatura/${mandato.legislatura}`);
     const legislatura = legislaturaData.data;
 
-    // Obter informações do autor
-    const autorData = await axios.get(`${url}/api/base/autor/?object_id=${id}`);
-    const autor = autorData.data.results[0].id;
-
+    console.log(parlamentarData, 'parlamentares');
     // Construir a resposta
     const response = {
-      ...parlamentarData,
+      __str__: parlamentarData.__str__,
+      nome_completo: parlamentarData.nome_completo,
+      nome_parlamentar: parlamentarData.nome_parlamentar,
+      sexo: parlamentarData.sexo,
+      email: parlamentarData.email,
       voto_recebidos: mandato.votos_recebidos,
       titular: mandato.titular,
       legislatura: legislatura.__str__,

@@ -33,11 +33,11 @@ async function Todos(req, res) {
                     voto_recebidos: parlament.votos_recebidos,
                     titular: parlament.titular,
                     legislatura: legislation.__str__,
-                    // autor: autor
+                    autor: autor
                 });
             }
         }
     }
-    res.status(200).json({ message: "ok retorno não sei " });
+    res.status(200).json(response);
 }
 exports.Todos = Todos;
