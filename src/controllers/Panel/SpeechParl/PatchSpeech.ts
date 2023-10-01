@@ -8,8 +8,6 @@ export const PatchSpeech = async (req, res) => {
     finalConsiderationsTime,finalConsiderationsTimeInit,finalConsiderationsTimeInitBoolean,
     soundPlay 
   } = req.body as any
-
-  console.log(idparams, 'id:', id, 'idsREcebidos')
     
     const response = await DiscourseModel.findOne({ _id: idparams})
     if(id){

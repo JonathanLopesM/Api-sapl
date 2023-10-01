@@ -14,7 +14,6 @@ const MattersLegislationFilter = async (req, res) => {
         // console.log(apiUrl);
         // Faça a chamada à API principal
         const materias = await axios_1.default.get(apiUrl);
-        console.log(materias, 'materias');
         // Extrair dados das matérias
         const results = await Promise.all(materias.data.results.map(async (matter) => {
             const autor = await axios_1.default.get(`${url}/api/materia/autoria/?materia=${matter.id}`);

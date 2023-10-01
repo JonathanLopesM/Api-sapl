@@ -168,6 +168,5 @@ mongoose_1.default.connect(process.env.DB_URL)
     server.listen(PORT);
     console.log(`Success Conected database on ${PORT}`);
 }).catch((err) => {
-    console.log('Erro especificado a baixo');
-    console.log(err);
+    console.log('Erro especificado a baixo', err);
 });

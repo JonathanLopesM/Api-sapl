@@ -20,12 +20,12 @@ export async function Details(req, res) {
     const legislaturaData = await axios.get(`${url}/api/parlamentares/legislatura/${mandato.legislatura}`);
     const legislatura = legislaturaData.data;
 
-    console.log(parlamentarData, 'parlamentares');
     // Construir a resposta
     const response = {
       __str__: parlamentarData.__str__,
       nome_completo: parlamentarData.nome_completo,
       nome_parlamentar: parlamentarData.nome_parlamentar,
+      fotografia: parlamentarData.fotografia,
       sexo: parlamentarData.sexo,
       email: parlamentarData.email,
       voto_recebidos: mandato.votos_recebidos,

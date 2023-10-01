@@ -10,7 +10,6 @@ try {
 
   // Faça a chamada à API principal
   const materias = await axios.get(apiUrl);
-  console.log(materias, 'materias')
 
   // Extrair dados das matérias
   const results = await Promise.all(
