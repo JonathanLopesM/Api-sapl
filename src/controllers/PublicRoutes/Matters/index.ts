@@ -5,7 +5,7 @@ export const MattersLegis = async (req, res) => {
   try {
     const { page, year, type, ementa, number } = req.query
     
-    const getUrl = `${url}/api/materia/materialegislativa/?page=${page}&ano=${year ? year : ''}&tipo=${type ? type : ''}&ementa=${ementa ? ementa : ''}&numero=${number ? number : ''}`
+    const getUrl = `${url}/api/materia/materialegislativa/?o=-data_apresentacao&page=${page}&ano=${year ? year : ''}&tipo=${type ? type : ''}&ementa__icontains=${ementa ? ementa : ''}&numero=${number ? number : ''}`
     const materiasResponse = await axios.get(getUrl);
     const pagination = materiasResponse.data.pagination
     const materias = materiasResponse.data.results;
@@ -24,6 +24,8 @@ export const MattersLegis = async (req, res) => {
             materia: autores.materia
           };
         });
+        const resultMatter = await axios.get(`${url}/api/sessao/ordemdia/?materia=${matter.id}`);
+        const resultado = resultMatter.data.results[0] ? resultMatter.data.results[0].resultado : ''
 
         return {
           id: matter.id,
@@ -32,7 +34,7 @@ export const MattersLegis = async (req, res) => {
           numero: matter.numero,
           ano: matter.ano,
           ementa: matter.ementa,
-          resultado: matter.resultado,
+          resultado: resultado ,
           texto_original: matter.texto_original,
           autores
         };
