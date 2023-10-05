@@ -10,7 +10,24 @@ export const MattersParlAutor = async (req, res) => {
     const pagination = materiasResponse.data.pagination
     const materias = materiasResponse.data.results;
 
-    res.status(200).json({ pagination, materias });
+    const response = await Promise.all(
+      materias.map(async matter => {
+        const resultMatter = await axios.get(`${url}/api/sessao/ordemdia/?materia=${matter.id}`);
+        const resultado = resultMatter.data.results[0] ? resultMatter.data.results[0].resultado : ''
+
+        return {
+          id: matter.id,
+          __str__: matter.__str__,
+          data_apresentacao: matter.data_apresentacao,
+          numero: matter.numero,
+          ano: matter.ano,
+          ementa: matter.ementa,
+          resultado: resultado ,
+          texto_original: matter.texto_original
+        };
+      })
+    )
+    res.status(200).json({ pagination, response });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Erro no servidor" });

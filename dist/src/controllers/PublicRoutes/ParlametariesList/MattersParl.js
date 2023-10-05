@@ -13,7 +13,21 @@ const MattersParlAutor = async (req, res) => {
         const materiasResponse = await axios_1.default.get(getUrl);
         const pagination = materiasResponse.data.pagination;
         const materias = materiasResponse.data.results;
-        res.status(200).json({ pagination, materias });
+        const response = await Promise.all(materias.map(async (matter) => {
+            const resultMatter = await axios_1.default.get(`${url}/api/sessao/ordemdia/?materia=${matter.id}`);
+            const resultado = resultMatter.data.results[0] ? resultMatter.data.results[0].resultado : '';
+            return {
+                id: matter.id,
+                __str__: matter.__str__,
+                data_apresentacao: matter.data_apresentacao,
+                numero: matter.numero,
+                ano: matter.ano,
+                ementa: matter.ementa,
+                resultado: resultado,
+                texto_original: matter.texto_original
+            };
+        }));
+        res.status(200).json({ pagination, response });
     }
     catch (error) {
         console.error(error);
