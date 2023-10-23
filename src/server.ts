@@ -41,6 +41,7 @@ import { RegisterResultVote } from "./controllers/RegisterResultVote";
 import { MattersLegislationFilter } from "./controllers/PublicRoutes/Matters/Matters";
 import { Legislation } from "./controllers/PublicRoutes/Legislation";
 import { MattersParlAutor } from "./controllers/PublicRoutes/ParlametariesList/MattersParl";
+import { PresenceMany } from "./controllers/Panel/VoteParlamentaries/PresenceMany";
 const url = process.env.URL_INTERLEGIS
 const token = process.env.TOKEN_INTERLEGIS
 
@@ -87,6 +88,8 @@ app.get("/parl/vote", ReturnVotes)
 app.get("/parl/vote/:id", GetUserId)
 app.patch("/parl/vote/:user", Voting)
 app.patch("/parl/presence/:user", Presence)
+
+app.patch("/parl/presence/many", PresenceMany)
 //Register Vote 
 app.post("/api/sessao/registrovotacao/", RegisterResultVote)
 

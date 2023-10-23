@@ -10,7 +10,7 @@ const MattersLegislationFilter = async (req, res) => {
     try {
         const { page, type, number, subject, year } = req.query;
         // Construa a URL da API com os parâmetros
-        const apiUrl = `${url}/api/materia/materialegislativa/?o=-data_apresentacao&page=${page ? page : ''}&tipo=${type ? type : ''}&ementa=${subject ? subject : ''}&numero=${number || ''}&ano=${year ? year : ''}`;
+        const apiUrl = `${url}/api/materia/materialegislativa/?o=-data_apresentacao&page=${page ? page : 1}&tipo=${type ? type : ''}&ementa=${subject ? subject : ''}&numero=${number || ''}&ano=${year ? year : ''}`;
         // console.log(apiUrl);
         // Faça a chamada à API principal
         const materias = await axios_1.default.get(apiUrl);

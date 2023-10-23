@@ -1,15 +1,14 @@
 import VoteModel from "../../../models/VoteModel"
 
 
-export const Presence = async (req, res) => {
-  const { user } = req.params 
+export const PresenceMany = async (req, res) => {
   const { presence } = req.body
 
-  console.log(user, presence, 'user e presenca')
+  console.log( presence, 'user e presenca')
   if(presence == null || presence == undefined){
     res.status(404).json({message: "Presença não foi cadastrada!"})
   }
-  const response = await VoteModel.findOneAndUpdate({_id:user}, {
+  const response = await VoteModel.updateMany({
     presenca: presence
   })
 
