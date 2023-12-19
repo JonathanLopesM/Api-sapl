@@ -4,7 +4,7 @@ import cors from "cors";
 import http from "http";
 import mongoose from "mongoose";
 import socketIO, { Server, Socket } from "socket.io";
-const PORT = 3333;
+const PORT = process.env.PORT_SET || 3333;
 
 import checkToken from "./middlewares/CheckToken";
 
