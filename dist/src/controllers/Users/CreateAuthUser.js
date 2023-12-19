@@ -49,7 +49,7 @@ const CreateAuthUser = async (req, res) => {
     //create User
     let user = {};
     let voting = {};
-    if (nivel == 2) {
+    if (nivel == 2 || nivel == 5) {
         user = new UserModel_1.default({
             username,
             password: passwordHash,

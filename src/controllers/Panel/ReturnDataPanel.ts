@@ -8,6 +8,18 @@ const url = process.env.URL_INTERLEGIS
 
 export const ReturnPainelDados = async (req:Request, res:Response) => {
   const statePanel = await PanelModel.findOne();
+  if(!statePanel){
+    const panel = new PanelModel({
+      estado: true,
+      tela: 0,
+      materia: '',
+      message: '',
+      registro: false
+
+    })
+
+    await panel.save()
+  }
   const { _id, tela, estado, materia, message, registro} = statePanel;
       let dados= {};
         

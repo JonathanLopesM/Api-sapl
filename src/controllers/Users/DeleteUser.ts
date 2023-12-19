@@ -1,3 +1,4 @@
+import VoteModel from "../../models/VoteModel";
 import UserModel from "../../models/UserModel";
 import UserParlamModel from "../../models/UserParlamModel";
 
@@ -9,6 +10,7 @@ try {
   response = await UserModel.findByIdAndDelete(id)
   if(!response){
     response = await UserParlamModel.findByIdAndDelete(id)
+    await VoteModel.findOneAndDelete({ user: id})
   }
 
   res.status(204).json({message: "user delete success ", response})

@@ -11,6 +11,16 @@ const axios_1 = __importDefault(require("axios"));
 const url = process.env.URL_INTERLEGIS;
 const ReturnPainelDados = async (req, res) => {
     const statePanel = await PanelModel_1.default.findOne();
+    if (!statePanel) {
+        const panel = new PanelModel_1.default({
+            estado: true,
+            tela: 0,
+            materia: '',
+            message: '',
+            registro: false
+        });
+        await panel.save();
+    }
     const { _id, tela, estado, materia, message, registro } = statePanel;
     let dados = {};
     if (tela === 0) {
